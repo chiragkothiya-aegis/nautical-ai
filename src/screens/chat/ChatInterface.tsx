@@ -55,13 +55,15 @@ function ChatInterface() {
   ];
 
   const loadingMessages = [
-    "1/6 Searching across knowledge base",
-    "2/6 Analysing extracted result",
-    "3/6 Scanning for information in STCW code",
-    "4/6 Looking for Table references",
-    "5/6 Analysing all datasets",
-    "6/6 Generating result",
-    "Almost Finished Generating Result",
+    "1/7 Initiating search through our extensive knowledge base...",
+    "2/7 Analyzing results to find the best match...",
+    "3/7 Cross-referencing with STCW code for accurate information...",
+    "4/7 Extracting relevant references...",
+    "5/7 Processing data for comprehensive analysis...",
+    "6/7 Compiling the most relevant information for you...",
+    "7/7 Finalizing the results, almost there...",
+    "Processing the final details...",
+    "Your personalized results are almost ready!"
   ];
 
   useEffect(() => {
@@ -71,17 +73,31 @@ function ChatInterface() {
   }, [messages]);
 
   useEffect(() => {
-    let intervalId: any;
+    let intervalId:any;
     if (isLoading) {
       let messageIndex = 0;
-      setLoadingMessage("1/6 Searching across knowledge base");
+      setLoadingMessage(loadingMessages[0]);
       intervalId = setInterval(() => {
-        messageIndex = (messageIndex + 1) % 7;
+        // Increment the messageIndex only if it hasn't reached the last message
+        if (messageIndex < loadingMessages.length - 1) {
+          messageIndex++;
+        }
+  
+        // Set the new loading message
         setLoadingMessage(loadingMessages[messageIndex]);
-      }, 4000);
+  
+        // Once it reaches the last message, it will stop updating
+        // The interval keeps running but the message will stay on the last one
+        if (loadingMessages[messageIndex] === "Your personalized results are almost ready!") {
+          clearInterval(intervalId);
+        }
+      }, 5000);
     } else {
-      setLoadingMessage("");
+      setLoadingMessage('');
+      clearInterval(intervalId);
     }
+  
+    // Clear the interval when the component unmounts or isLoading changes
     return () => clearInterval(intervalId);
   }, [isLoading]);
 
