@@ -1,0 +1,17 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 10px;
+    padding-inline: 10px;
+    background-color: rgb(240, 240, 240);
+    .left-view {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .right-view {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+}

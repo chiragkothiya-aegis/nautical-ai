@@ -1,0 +1,56 @@
+@import "../styles/Variables.scss";
+
+.left-view-home {
+  background-color: $color-app-blue;
+  flex: 1;
+  display: grid;
+  padding: 20px;
+  .desc {
+    font-size: 30px;
+    font-weight: bold;
+    max-width: 350px;
+    color: white;
+  }
+}
+
+.right-view-home {
+  flex: 1;
+  display: grid;
+  align-content: space-between;
+  padding-bottom: 30px;
+  .header-home {
+    height: 50px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 10px;
+  }
+  .view-body {
+    display: grid;
+    justify-content: center;
+    gap: 30px;
+    .get-start {
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+  .view-footer {
+    display: grid;
+    justify-content: center;
+    gap: 30px;
+    .logo-view {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  .view-terms {
+    display: flex;
+    .divider {
+      background-color: black;
+      width: 1px;
+      margin-block: 8px;
+      margin-inline: 6px;
+    }
+  }
+}
