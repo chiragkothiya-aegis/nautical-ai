@@ -3,10 +3,11 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import AppLayout from "./screens/layout/AppLayout";
 import { AuthConsumer, AuthProvider } from "./shared/AuthContext/AuthContext";
 import Login from "./screens/login/Login";
-import { PATH_LOGIN } from "./screens/layout/RouteConstants";
+import { PATH_LOGIN, PATH_SIGNUP } from "./screens/layout/RouteConstants";
 import Home from "./screens/Home";
-import "./styles/_antd.scss"
+import "./styles/_antd.scss";
 import "./App.scss";
+import Signup from "./screens/login/Signup";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             ) : (
               <Routes>
                 <Route path={PATH_LOGIN} element={<Login />} />
+                <Route path={PATH_SIGNUP} element={<Signup />} />
                 <Route path={"/"} element={<Home />} />
                 <Route path="/*" element={<Navigate to={"/"} />} />
               </Routes>

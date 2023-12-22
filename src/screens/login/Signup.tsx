@@ -1,20 +1,16 @@
 import { Button, Card, Form, Input, Typography } from "antd";
 import { AuthConsumer } from "../../shared/AuthContext/AuthContext";
 import FormInput from "../../shared/components/FormInput/FormInput";
-import iconGoogle from "../../assets/images/google.svg";
-import iconMicrosoft from "../../assets/images/microsoft.svg";
-import iconApple from "../../assets/images/apple.svg";
 import { useState } from "react";
 import "./Login.scss";
 import SocialLogin from "./SocialLogin";
 import { useNavigate } from "react-router-dom";
-import { PATH_SIGNUP } from "../layout/RouteConstants";
+import { PATH_LOGIN } from "../layout/RouteConstants";
 
 const { Title } = Typography;
 
-function Login() {
+function Signup() {
   const [showPassword, setShowPassword] = useState(false);
-
   const navigate = useNavigate();
 
   const handleSubmit = (e: any, updateAPICreds: any) => {
@@ -34,7 +30,7 @@ function Login() {
           <div className="login">
             <div className="login-wrapper">
               <Card className={"login-form-wrapper"}>
-                <Title level={2}>{"Welcome Back"}</Title>
+                <Title level={2}>{"Create your account"}</Title>
                 <div className="form-wrapper">
                   <Form
                     size="middle"
@@ -72,14 +68,14 @@ function Login() {
                     </Form.Item>
                   </Form>
                   <span className="text-btn-link">
-                    Don't have an account?
+                    Already have an account?
                     <Button
                       type="text"
                       onClick={() => {
-                        navigate(PATH_SIGNUP);
+                        navigate(PATH_LOGIN);
                       }}
                     >
-                      Sign up
+                      Log in
                     </Button>
                   </span>
                   <SocialLogin />
@@ -93,4 +89,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;

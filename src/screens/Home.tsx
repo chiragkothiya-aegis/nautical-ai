@@ -1,9 +1,10 @@
 import { Button, Divider } from "antd";
 import { ReactComponent as LogoSide } from "../assets/images/logo_text_side.svg";
 import { ReactComponent as LogoBlack } from "../assets/images/logo_text_black.svg";
-import "./Home.scss";
 import { useNavigate } from "react-router-dom";
-import { PATH_LOGIN } from "./layout/RouteConstants";
+import { PATH_LOGIN, PATH_SIGNUP } from "./layout/RouteConstants";
+import WriteLikeChatGPT from "../shared/components/WriteLikeChatGPT";
+import "./Home.scss";
 
 function Home() {
   const navigate = useNavigate();
@@ -12,9 +13,12 @@ function Home() {
     <div style={{ display: "flex", height: "100vh" }}>
       <div className="left-view-home">
         <LogoSide />
-        <span className="desc">
-          Display sample QnA in dynamic mode. STCW, Rules and guidances
-        </span>
+        <div>
+          <span className="desc">
+            Can I use my STCW CoC to work on fishing vessels?
+          </span>
+          <WriteLikeChatGPT text="Based on the provided documents, it is clear that the STCW Convention 1978, as amended, contains provisions specifically for the certification and training of personnel on fishing vessels. The International Convention on Standards of Training, Certification and Watchkeeping for Fishing Vessel Personnel (STCW-F), 1995, addresses the specific requirements for personnel working on fishing vessels" />
+        </div>
       </div>
       <div className="right-view-home">
         <div className="header-home">
@@ -33,7 +37,14 @@ function Home() {
           >
             Log in{" "}
           </Button>
-          <Button type={"primary"}>Sign up </Button>
+          <Button
+            type={"primary"}
+            onClick={() => {
+              navigate(PATH_SIGNUP);
+            }}
+          >
+            Sign up{" "}
+          </Button>
         </div>
         <div className="view-footer">
           <div className="logo-view">
