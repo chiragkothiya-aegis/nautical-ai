@@ -7,6 +7,7 @@ import { PATH_CHAT, PATH_HISTORY } from "./RouteConstants";
 import { useEffect, useState } from "react";
 import { ReactComponent as LogoSideBlack } from "../../assets/images/logo_text_side_black.svg";
 import "./AppLayout.scss";
+import { googleLogout } from "@react-oauth/google";
 
 const { Content } = Layout;
 
@@ -39,6 +40,7 @@ export default function AppLayout({ children }: any) {
   const onClickDropDown = ({ key }: any) => {
     if (key === "profile") {
     } else if (key === "logout") {
+      googleLogout();
       localStorage.clear();
       window.location.reload();
     }

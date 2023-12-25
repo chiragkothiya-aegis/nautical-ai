@@ -6,11 +6,29 @@
   display: grid;
   padding: 20px;
   .desc {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bold;
     // max-width: 350px;
     color: white;
     margin-top: 20px;
+  }
+}
+
+.left-view-home-second {
+  flex: 1;
+  display: grid;
+  padding: 20px;
+  align-content: center;
+  gap: 20px;
+  .desc {
+    font-size: 20px;
+    font-weight: bold;
+    max-width: 350px;
+    color: $color-app-blue;
+    margin-top: 20px;
+  }
+  .btn-get-start {
+    max-width: 200px;
   }
 }
 
@@ -53,5 +71,35 @@
       margin-block: 8px;
       margin-inline: 6px;
     }
+  }
+}
+
+
+.left-view-home-third {
+  flex: 0.8;
+  display: grid;
+  padding: 20px;
+  align-content: center;
+}
+
+
+.right-view-home-third {
+  flex: 0.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  align-items: end;
+  gap: 10px;
+  .desc {
+    font-size: 20px;
+    font-weight: bold;
+    // max-width: 350px;
+    // color: $color-app-blue;
+    margin-top: 20px;
+  }
+  .btn-find {
+    max-width: 200px;
+    margin-top: 10px;
   }
 }

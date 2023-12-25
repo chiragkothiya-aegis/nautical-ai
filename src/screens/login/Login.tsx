@@ -82,7 +82,7 @@ function Login() {
                       Sign up
                     </Button>
                   </span>
-                  <SocialLogin />
+                  <SocialLogin updateAPICreds={updateAPICreds} />
                 </div>
               </Card>
             </div>
