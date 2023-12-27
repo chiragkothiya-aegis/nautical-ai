@@ -1,13 +1,31 @@
 import { Button, Divider } from "antd";
 import { ReactComponent as LogoSide } from "../assets/images/logo_text_side.svg";
 import { ReactComponent as LogoBlack } from "../assets/images/logo_text_black.svg";
+import { ReactComponent as LogoText } from "../assets/images/logo_text.svg";
+import docking from "../assets/images/docking.png";
+import image1 from "../assets/images/image1.png";
+import image2 from "../assets/images/image2.png";
+import image3 from "../assets/images/image3.png";
 import { useNavigate } from "react-router-dom";
 import { PATH_LOGIN, PATH_SIGNUP } from "./layout/RouteConstants";
 import WriteLikeChatGPT from "../shared/components/WriteLikeChatGPT";
+import { useEffect, useState } from "react";
 import "./Home.scss";
 
 function Home() {
   const navigate = useNavigate();
+
+  const [imageSecondPage, setImageSecondPage] = useState(image1);
+
+  const images = [image1, image2, image3];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const random = Math.floor(Math.random() * images.length);
+      setImageSecondPage(images[random]);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   const renderTop = () => {
     return (
@@ -76,7 +94,9 @@ function Home() {
           </Button>
           {/* </div> */}
         </div>
-        <div className="right-view-home"></div>
+        <div className="right-view-home-second">
+          <img src={imageSecondPage} style={{ height: "80vh" }} />
+        </div>
       </div>
     );
   };
@@ -84,7 +104,9 @@ function Home() {
   const renderThird = () => {
     return (
       <div style={{ display: "flex", height: "100vh" }}>
-        <div className="left-view-home-third"></div>
+        <div className="left-view-home-third">
+          <img src={docking} style={{ height: "90vh" }} />
+        </div>
 
         <div className="right-view-home-third">
           {/* <div> */}
@@ -103,11 +125,20 @@ function Home() {
     );
   };
 
+  const renderFooter = () => {
+    return (
+      <div className="home-footer-view">
+        <LogoText width={"40vh"} height={"40vh"} />
+      </div>
+    );
+  };
+
   return (
     <>
       {renderTop()}
       {renderSecond()}
       {renderThird()}
+      {renderFooter()}
     </>
   );
 }
