@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import logo from "../../assets/images/logo.svg"
-import "./ChatInterface.css";
+import "./ChatInterface.scss";
 // import NavBar from "./NavBar";
 import { AiOutlineSend } from "react-icons/ai";
 import { CiCirclePlus } from "react-icons/ci";
@@ -264,7 +264,7 @@ function ChatInterface() {
           </div>
         )}
         <div className="input-area">
-          <CiCirclePlus className={"send-button"} size={15} />
+          {/* <CiCirclePlus className={"send-button"} size={40} /> */}
           <input
             type="text"
             value={inputValue}
@@ -276,7 +276,7 @@ function ChatInterface() {
           <AiOutlineSend
             onClick={handleSendButton}
             className={"send-button"}
-            size={15}
+            size={40}
           />
         </div>
         <div className={"footer-message"}>

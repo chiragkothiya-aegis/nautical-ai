@@ -29,10 +29,10 @@ function Home() {
 
   const renderTop = () => {
     return (
-      <div style={{ display: "flex", height: "100vh" }}>
+      <div className="home-main-view">
         <div className="left-view-home">
           <LogoSide />
-          <div>
+          <div style={{ marginTop: "10px", paddingBlock: "20px" }}>
             <span className="desc">
               Can I use my STCW CoC to work on fishing vessels?
             </span>
@@ -82,7 +82,7 @@ function Home() {
 
   const renderSecond = () => {
     return (
-      <div style={{ display: "flex", height: "100vh" }}>
+      <div className="home-main-view">
         <div className="left-view-home-second">
           {/* <div> */}
           <span className="desc">
@@ -95,7 +95,7 @@ function Home() {
           {/* </div> */}
         </div>
         <div className="right-view-home-second">
-          <img src={imageSecondPage} style={{ height: "80vh" }} />
+          <img src={imageSecondPage} />
         </div>
       </div>
     );
@@ -103,9 +103,9 @@ function Home() {
 
   const renderThird = () => {
     return (
-      <div style={{ display: "flex", height: "100vh" }}>
+      <div className="home-main-view">
         <div className="left-view-home-third">
-          <img src={docking} style={{ height: "90vh" }} />
+          <img src={docking} />
         </div>
 
         <div className="right-view-home-third">

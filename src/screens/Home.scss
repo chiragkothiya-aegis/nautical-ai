@@ -1,5 +1,13 @@
 @import "../styles/Variables.scss";
 
+.home-main-view {
+  display: flex;
+  min-height: 100vh;
+  @media (max-width: 768px) {
+    display: grid;
+  }
+}
+
 .left-view-home {
   background-color: $color-app-blue;
   flex: 1;
@@ -11,6 +19,9 @@
     // max-width: 350px;
     color: white;
     margin-top: 20px;
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
   }
 }
 
@@ -34,6 +45,9 @@
       font-size: 30px;
       font-weight: bold;
       text-align: center;
+    }
+    @media (max-width: 768px) {
+      margin-block: 100px;
     }
   }
   .view-footer {
@@ -69,6 +83,11 @@
     max-width: 400px;
     // color: $color-app-blue;
     margin-top: 20px;
+    @media (max-width: 768px) {
+      font-size: 20px;
+      line-height: 35px;
+      max-width: 300px;
+    }
   }
   .btn-get-start {
     max-width: 200px;
@@ -82,6 +101,14 @@
   padding-right: 0px;
   align-content: center;
   justify-content: end;
+  img {
+    height: 90%;
+    @media (max-width: 768px) {
+      height: auto;
+      width: 100%;
+      padding-right: 20px;
+    }
+  }
 }
 
 .left-view-home-third {
@@ -90,6 +117,14 @@
   padding: 20px;
   padding-left: 0px;
   align-content: center;
+  img {
+    height: 90%;
+    @media (max-width: 768px) {
+      height: auto;
+      width: 100%;
+      padding-left: 20px;
+    }
+  }
 }
 
 .right-view-home-third {
@@ -107,6 +142,10 @@
     // max-width: 350px;
     // color: $color-app-blue;
     margin-top: 20px;
+    @media (max-width: 768px) {
+      font-size: 20px;
+      line-height: 35px;
+    }
   }
   .btn-find {
     max-width: 210px;

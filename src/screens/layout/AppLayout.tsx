@@ -50,22 +50,27 @@ export default function AppLayout({ children }: any) {
     return (
       <div className="header">
         <div className="left-view">
-          <LogoSideBlack />
-          <Button
-            type={selectedPath == PATH_CHAT ? "primary" : "text"}
-            onClick={() => handelOnClick(PATH_CHAT)}
-          >
-            Chat
-          </Button>
-          <Button
+          <LogoSideBlack height={30} width={140} />
+          <div>
+            <Button
+              size="small"
+              type={selectedPath == PATH_CHAT ? "primary" : "text"}
+              onClick={() => handelOnClick(PATH_CHAT)}
+            >
+              Chat
+            </Button>
+            <Button
+            size="small"
             type={selectedPath == PATH_HISTORY ? "primary" : "text"}
             onClick={() => handelOnClick(PATH_HISTORY)}
           >
             History
           </Button>
+          </div>
         </div>
         <div className="right-view">
           <Button
+            size="small"
             icon={<PlusOutlined />}
             onClick={() => {
               Navigate(PATH_CHAT);
@@ -86,8 +91,8 @@ export default function AppLayout({ children }: any) {
               <img
                 src={profileIcon}
                 alt={"profile"}
-                width="40px"
-                height="40px"
+                width="30px"
+                height="30px"
               />
               <DownOutlined
                 style={{
@@ -106,7 +111,7 @@ export default function AppLayout({ children }: any) {
     return (
       <>
         <Content>
-          <div style={{ paddingInline: "200px", paddingBlock: "20px" }}>
+          <div style={{ paddingInline: "0px", paddingBlock: "0px" }}>
             <AppRoutes />
           </div>
         </Content>
