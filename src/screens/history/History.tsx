@@ -2,6 +2,7 @@ import { Button } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PATH_CHAT } from "../layout/RouteConstants";
+import "./History.scss"
 
 function History() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ function History() {
   ] as any);
 
   return (
-    <div style={{ display: "grid", gap: "10px" }}>
+    <div className="history-view">
       {questions?.map((item: any) => {
         return (
           <Button
