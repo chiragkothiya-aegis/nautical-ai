@@ -17,13 +17,42 @@ function Home() {
 
   const [imageSecondPage, setImageSecondPage] = useState(image1);
 
+  const questions = [
+    {
+      question: "Can I use my STCW CoC to work on fishing vessels?",
+      answer:
+        "Based on the provided documents, it is clear that the STCW Convention 1978, as amended, contains provisions specifically for the certification and training of personnel on fishing vessels. The International Convention on Standards of Training, Certification and Watchkeeping for Fishing Vessel Personnel (STCW-F), 1995, addresses the specific requirements for personnel working on fishing vessels",
+    },
+    {
+      question: "I hold an MEC3 CoC. Can I obtain an ETO CoC?",
+      answer:
+        "Based on the provided documents, it is possible for an individual holding a Marine Engineer Class 3 (MEC 3) Certificate of Competency (CoC) to obtain an Electro-Technical Officer (ETO) CoC. The process for obtaining an ETO CoC involves meeting specific requirements outlined in the Maritime Rules Part 32.118 and the Marine Engineer Class 3 (MEC 3) guidelines.",
+    },
+    {
+      question: "How many hours of work and rest do I get on a ship?",
+      answer:
+        "The hours of work and rest for seafarers on a ship are governed by various regulations and guidelines to ensure the safety, well-being, and operational efficiency of the crew. The specific requirements are outlined in the Maritime Rules Part 31, the Marine Orders 74 and 71, the MLC 2006, and the STCW Convention.",
+    },
+    {
+      question:
+        "What topics are covered in the final oral exam for the MEC 3 certificate?",
+      answer:
+        "The final oral exam for the Marine Engineer Class 3 (MEC 3) certificate covers a range of topics to assess the candidate's competency in accordance with the STCW Convention and Maritime Rules Part 32.120. The examination is designed to ensure that the candidate has acquired the necessary knowledge and skills to perform engineering duties on maritime vessels at the operational level.",
+    },
+  ];
+
+  const [question, setQuestion] = useState(questions[0]);
+
   const images = [image1, image2, image3];
 
   useEffect(() => {
     const interval = setInterval(() => {
       const random = Math.floor(Math.random() * images.length);
       setImageSecondPage(images[random]);
-    }, 3000);
+
+      const randomQ = Math.floor(Math.random() * questions.length);
+      setQuestion(questions[randomQ]);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -33,10 +62,8 @@ function Home() {
         <div className="left-view-home">
           <LogoSide />
           <div style={{ marginTop: "10px", paddingBlock: "20px" }}>
-            <span className="desc">
-              Can I use my STCW CoC to work on fishing vessels?
-            </span>
-            <WriteLikeChatGPT text="Based on the provided documents, it is clear that the STCW Convention 1978, as amended, contains provisions specifically for the certification and training of personnel on fishing vessels. The International Convention on Standards of Training, Certification and Watchkeeping for Fishing Vessel Personnel (STCW-F), 1995, addresses the specific requirements for personnel working on fishing vessels" />
+            <span className="desc">{question.question}</span>
+            <WriteLikeChatGPT text={question.answer} />
           </div>
         </div>
         <div className="right-view-home">
