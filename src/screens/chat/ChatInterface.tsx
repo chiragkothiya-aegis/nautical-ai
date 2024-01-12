@@ -49,9 +49,9 @@ function ChatInterface() {
   const defaultQuestions = [
     "Can I use my STCW CoC to work on fishing vessels?",
     "How many hours of work and rest do I get on a ship?",
-    "I hold an MEC3 CoC. Can I obtain an ETO CoC?",
-    "What are the acceptable forms of primary ID and other forms of ID for an MEC 3?",
-    "What topics are covered in the final oral exam for the MEC 3 certificate?",
+    "Can I use my mobile phone on ship?",
+    "What is difference between certificate of competency or certificate of proficiency?",
+    "What are the privileges of an ETO?",
   ];
 
   const loadingMessages = [
@@ -91,7 +91,7 @@ function ChatInterface() {
         if (loadingMessages[messageIndex] === "Your personalized results are almost ready!") {
           clearInterval(intervalId);
         }
-      }, 5000);
+      }, 6000);
     } else {
       setLoadingMessage('');
       clearInterval(intervalId);
