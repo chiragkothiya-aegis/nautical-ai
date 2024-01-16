@@ -1,0 +1,16 @@
+.header-view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 0px;
+  svg {
+    cursor: pointer;
+  }
+  .buttons {
+    height: 50px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding-right: 10px;
+  }
+}

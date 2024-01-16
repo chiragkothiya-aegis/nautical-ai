@@ -7,7 +7,14 @@ import image1 from "../assets/images/image1.png";
 import image2 from "../assets/images/image2.png";
 import image3 from "../assets/images/image3.png";
 import { useNavigate } from "react-router-dom";
-import { PATH_LOGIN, PATH_SIGNUP } from "./layout/RouteConstants";
+import {
+  PATH_ABOUT,
+  PATH_COMPANY,
+  PATH_CONTACT,
+  PATH_LOGIN,
+  PATH_PRODUCTS,
+  PATH_SIGNUP,
+} from "./layout/RouteConstants";
 import WriteLikeChatGPT from "../shared/components/WriteLikeChatGPT";
 import { useEffect, useState } from "react";
 import "./Home.scss";
@@ -68,10 +75,18 @@ function Home() {
         </div>
         <div className="right-view-home">
           <div className="header-home">
-            <Button type={"text"}>Products</Button>
-            <Button type={"text"}>Company </Button>
-            <Button type={"text"}>Contact</Button>
-            <Button type={"text"}>About </Button>
+            <Button type={"text"} onClick={() => navigate(PATH_PRODUCTS)}>
+              Products
+            </Button>
+            <Button type={"text"} onClick={() => navigate(PATH_COMPANY)}>
+              Company
+            </Button>
+            <Button type={"text"} onClick={() => navigate(PATH_CONTACT)}>
+              Contact
+            </Button>
+            <Button type={"text"} onClick={() => navigate(PATH_ABOUT)}>
+              About
+            </Button>
           </div>
           <div className="view-body">
             <span className="get-start">Get started</span>
