@@ -1,6 +1,6 @@
 #root {
   /* background-color: pink;
-    font-size: 0.57rem; */
+      font-size: 0.57rem; */
   font-family: "Roboto", sans-serif;
 }
 
@@ -37,21 +37,8 @@
   border-radius: 20px;
   padding: 10px 20px;
   margin-bottom: 10px;
-  width: fit-content;
-  align-self: flex-end;
-}
-
-.message.system {
-  align-self: flex-start;
-  // background-color: #dfecf7; /* Grey background for system messages */
-}
-
-.message.user {
-  display: flex;
-  align-items: center;
   width: inherit;
-  justify-content: flex-start;
-  flex-direction: row-reverse;
+  align-self: flex-end;
 }
 
 .input-area {

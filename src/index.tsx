@@ -11,6 +11,7 @@ import { msalConfig } from "./shared/authConfig";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./index.css";
+import { RecoilRoot } from "recoil";
 
 const msalInstance = new PublicClientApplication(msalConfig);
 
@@ -23,7 +24,9 @@ root.render(
       {/* Create cliend id from following url
     https://console.cloud.google.com/apis/credentials?project=nauticalai */}
       <GoogleOAuthProvider clientId="191151223775-4ld2994ucoec8ji73mi9ldsem6d16htr.apps.googleusercontent.com">
-        <App />
+        <RecoilRoot>
+          <App />
+        </RecoilRoot>
       </GoogleOAuthProvider>
     </MsalProvider>
   </React.StrictMode>
