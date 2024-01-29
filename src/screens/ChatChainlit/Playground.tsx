@@ -9,12 +9,28 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import "./ChatChainlit.scss";
+import { LiaThumbsDownSolid, LiaThumbsUp } from "react-icons/lia";
+
+const DefaultQuestion = ({ question, onClick }: any) => (
+  <button onClick={() => onClick(question)} className="default-question">
+    {question}
+  </button>
+);
 
 export function Playground() {
   const [inputValue, setInputValue] = useState("");
-  const { sendMessage } = useChatInteract();
+  const { sendMessage, callAction } = useChatInteract();
   const { messages } = useChatMessages();
   const messageListRef = useRef<any>(null);
+  const [showDefaultQuestions, setShowDefaultQuestions] = useState(true);
+
+  const defaultQuestions = [
+    "Can I use my STCW CoC to work on fishing vessels?",
+    "How many hours of work and rest do I get on a ship?",
+    "Can I use my mobile phone on ship?",
+    "What is difference between certificate of competency or certificate of proficiency?",
+    "What are the privileges of an ETO?",
+  ];
 
   useEffect(() => {
     if (messageListRef.current) {
@@ -22,8 +38,9 @@ export function Playground() {
     }
   }, [messages]);
 
-  const handleSendMessage = () => {
-    const content = inputValue.trim();
+  const handleSendMessage = (value: string) => {
+    setShowDefaultQuestions(false);
+    const content = value.trim();
     if (content) {
       const message: IStep = {
         id: uuidv4(),
@@ -62,8 +79,36 @@ export function Playground() {
         <p>
           <ReactMarkdown>{message.output}</ReactMarkdown>
         </p>
-        <div className={"feedback-button"}>
+        {/* {message.type == "assistant_message" && (
+          <div className={"feedback-button"}>
+            <LiaThumbsUp className={"thumb-up"} size={20} />
+            <LiaThumbsDownSolid className={"thumb-down"} size={20} />
+          </div>
+        )} */}
+        {/* <div className={"feedback-button"}>
           <small className="text-xs text-gray-500">{date}</small>
+        </div> */}
+      </div>
+    );
+  };
+
+  const renderDefaultQuestions = () => {
+    return (
+      <div className="default-questions-container">
+        <div className={"landing-page-logo"}>
+          <img src={logo} alt={"landing-page-logo"} />
+        </div>
+        <div className={"welcome-message"}>
+          <h4>How can I help you today?</h4>
+        </div>
+        <div className={"default-questions-list"}>
+          {defaultQuestions.map((question) => (
+            <DefaultQuestion
+              key={question}
+              question={question}
+              onClick={() => handleSendMessage(question)}
+            />
+          ))}
         </div>
       </div>
     );
@@ -72,9 +117,13 @@ export function Playground() {
   return (
     <div className="chat-container">
       <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-        <div className="message-list" ref={messageListRef}>
-          {messages.map((message) => renderMessage(message))}
-        </div>
+        {showDefaultQuestions ? (
+          renderDefaultQuestions()
+        ) : (
+          <div className="message-list" ref={messageListRef}>
+            {messages.map((message) => renderMessage(message))}
+          </div>
+        )}
 
         <div className="input-area">
           <input
@@ -85,13 +134,13 @@ export function Playground() {
             onChange={(e) => setInputValue(e.target.value)}
             onKeyUp={(e) => {
               if (e.key === "Enter") {
-                handleSendMessage();
+                handleSendMessage(inputValue);
               }
             }}
             placeholder="What do you need help with?"
           />
           <AiOutlineSend
-            onClick={handleSendMessage}
+            onClick={() => handleSendMessage(inputValue)}
             className={"send-button"}
             size={40}
           />

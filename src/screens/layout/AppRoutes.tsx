@@ -13,6 +13,7 @@ const AppRoutes: React.FunctionComponent<Props> = () => {
     <Routes>
       {/* <Route path={PATH_CHAT} element={<Chat />} /> */}
       {/* <Route path={PATH_CHAT} element={<ChatInterface />} /> */}
+      <Route path={"/chat1"} element={<ChatInterface />} />
       <Route path={PATH_CHAT} element={<ChatChainlit />} />
       <Route path={PATH_HISTORY} element={<History />} />
       <Route path="/*" element={<Navigate to={PATH_CHAT} />} />
