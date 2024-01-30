@@ -5,11 +5,12 @@ import {
   useChatInteract,
   useChatMessages,
   IStep,
+  useChatData,
 } from "@chainlit/react-client";
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
-import "./ChatChainlit.scss";
 import { LiaThumbsDownSolid, LiaThumbsUp } from "react-icons/lia";
+import "./ChatChainlit.scss";
 
 const DefaultQuestion = ({ question, onClick }: any) => (
   <button onClick={() => onClick(question)} className="default-question">
@@ -19,10 +20,12 @@ const DefaultQuestion = ({ question, onClick }: any) => (
 
 export function Playground() {
   const [inputValue, setInputValue] = useState("");
-  const { sendMessage, callAction } = useChatInteract();
+  const { sendMessage } = useChatInteract();
+  const { loading } = useChatData();
   const { messages } = useChatMessages();
   const messageListRef = useRef<any>(null);
   const [showDefaultQuestions, setShowDefaultQuestions] = useState(true);
+  const [showLoading, setShowLoading] = useState(false);
 
   const defaultQuestions = [
     "Can I use my STCW CoC to work on fishing vessels?",
@@ -33,12 +36,19 @@ export function Playground() {
   ];
 
   useEffect(() => {
+    if (loading) {
+      setShowLoading(false);
+    }
+  }, [loading]);
+
+  useEffect(() => {
     if (messageListRef.current) {
       messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
     }
   }, [messages]);
 
   const handleSendMessage = (value: string) => {
+    setShowLoading(true);
     setShowDefaultQuestions(false);
     const content = value.trim();
     if (content) {
@@ -114,6 +124,15 @@ export function Playground() {
     );
   };
 
+  const renderLoader = () => {
+    return (
+      <div className="loading-message">
+        <div className="loader" />
+        <div>{"Initiating search through our extensive knowledge base..."}</div>
+      </div>
+    );
+  };
+
   return (
     <div className="chat-container">
       <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
@@ -122,6 +141,7 @@ export function Playground() {
         ) : (
           <div className="message-list" ref={messageListRef}>
             {messages.map((message) => renderMessage(message))}
+            {showLoading && renderLoader()}
           </div>
         )}
 
