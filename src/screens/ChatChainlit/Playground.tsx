@@ -36,12 +36,9 @@ export function Playground() {
   ];
 
   useEffect(() => {
-    if (loading) {
+    if(showLoading && messages?.at(-1)?.streaming) {
       setShowLoading(false);
     }
-  }, [loading]);
-
-  useEffect(() => {
     if (messageListRef.current) {
       messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
     }
@@ -148,6 +145,7 @@ export function Playground() {
         <div className="input-area">
           <input
             autoFocus
+            disabled={loading || showLoading}
             type="text"
             value={inputValue}
             id="message-input"
