@@ -6,10 +6,14 @@ import {
   useChatMessages,
   IStep,
   useChatData,
+  IFeedback,
 } from "@chainlit/react-client";
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import { LiaThumbsDownSolid, LiaThumbsUp } from "react-icons/lia";
+import { apiClient } from "./ChatChainlit";
+import { Modal } from "antd";
+import TextArea from "antd/es/input/TextArea";
 import "./ChatChainlit.scss";
 
 const DefaultQuestion = ({ question, onClick }: any) => (
@@ -18,7 +22,13 @@ const DefaultQuestion = ({ question, onClick }: any) => (
   </button>
 );
 
-export function Playground() {
+interface IPlayground {
+  accessToken: string;
+}
+
+export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
+  const { accessToken } = props;
+
   const [inputValue, setInputValue] = useState("");
   const { sendMessage } = useChatInteract();
   const { loading } = useChatData();
@@ -26,6 +36,11 @@ export function Playground() {
   const messageListRef = useRef<any>(null);
   const [showDefaultQuestions, setShowDefaultQuestions] = useState(true);
   const [showLoading, setShowLoading] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedbackText, setFeedbackText] = useState(undefined as any);
+  const [voteType, setVoteType] = useState(0);
+  const [selectedMessage, setSelectedMessage] = useState({} as IStep);
+  const [feedbackIds, setFeedbackIds] = useState([] as any);
 
   const defaultQuestions = [
     "Can I use my STCW CoC to work on fishing vessels?",
@@ -36,7 +51,7 @@ export function Playground() {
   ];
 
   useEffect(() => {
-    if(showLoading && messages?.at(-1)?.streaming) {
+    if (showLoading && messages?.at(-1)?.streaming) {
       setShowLoading(false);
     }
     if (messageListRef.current) {
@@ -61,14 +76,44 @@ export function Playground() {
     }
   };
 
-  const renderMessage = (message: IStep) => {
-    const dateOptions: Intl.DateTimeFormatOptions = {
-      hour: "2-digit",
-      minute: "2-digit",
+  const actionFeedback = (message: IStep) => {
+    const find = feedbackIds?.find(
+      (item: any) => item?.messageId == message?.id
+    );
+
+    const feedback: IFeedback = {
+      id: find?.feedbackId,
+      comment: feedbackText,
+      forId: message?.id,
+      strategy: "BINARY",
+      value: voteType,
     };
-    const date = new Date(message.createdAt).toLocaleTimeString(
-      undefined,
-      dateOptions
+
+    apiClient
+      .setFeedback(feedback, accessToken)
+      .then((res) => {
+        const feedback = {
+          messageId: message?.id,
+          feedbackId: res.feedbackId,
+          type: voteType,
+        };
+        const tmp = [...feedbackIds];
+        let index = tmp.findIndex((item) => item?.messageId == message?.id);
+        if (index !== -1) {
+          tmp[index] = feedback;
+        } else {
+          tmp.push(feedback);
+        }
+        setFeedbackIds(tmp);
+      })
+      .catch((e) => {
+        console.log("E: ", e);
+      });
+  };
+
+  const renderMessage = (message: IStep) => {
+    const find = feedbackIds?.find(
+      (item: any) => item?.messageId == message?.id
     );
 
     return (
@@ -86,16 +131,60 @@ export function Playground() {
         <p>
           <ReactMarkdown>{message.output}</ReactMarkdown>
         </p>
-        {/* {message.type == "assistant_message" && (
+        {message.type == "assistant_message" && (
           <div className={"feedback-button"}>
-            <LiaThumbsUp className={"thumb-up"} size={20} />
-            <LiaThumbsDownSolid className={"thumb-down"} size={20} />
+            <LiaThumbsUp
+              className={"thumb-up"}
+              size={20}
+              fill={find?.type == 1 ? "green" : ""}
+              onClick={() => {
+                setVoteType(find?.type == 1 ? 0 : 1);
+                setSelectedMessage(message);
+                setShowFeedback(true);
+              }}
+            />
+            <LiaThumbsDownSolid
+              className={"thumb-down"}
+              size={20}
+              fill={find?.type == -1 ? "red" : ""}
+              onClick={() => {
+                setVoteType(find?.type == -1 ? 0 : -1);
+                setSelectedMessage(message);
+                setShowFeedback(true);
+              }}
+            />
           </div>
-        )} */}
-        {/* <div className={"feedback-button"}>
-          <small className="text-xs text-gray-500">{date}</small>
-        </div> */}
+        )}
       </div>
+    );
+  };
+
+  const renderFeedback = () => {
+    return (
+      <Modal
+        centered
+        width={350}
+        open={showFeedback}
+        closable={false}
+        okText="Submit"
+        onOk={() => {
+          actionFeedback(selectedMessage);
+          setShowFeedback(false);
+        }}
+        onCancel={() => setShowFeedback(false)}
+      >
+        <div style={{ display: "grid", gap: "20px", paddingBottom: "10px" }}>
+          <span>Provide additional feedback</span>
+          <TextArea
+            name="feedback"
+            bordered
+            style={{ border: "1px solid lightgray" }}
+            onChange={(e) => {
+              setFeedbackText(e.target.value);
+            }}
+          />
+        </div>
+      </Modal>
     );
   };
 
@@ -132,6 +221,7 @@ export function Playground() {
 
   return (
     <div className="chat-container">
+      {showFeedback && renderFeedback()}
       <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
         {showDefaultQuestions ? (
           renderDefaultQuestions()
@@ -172,4 +262,4 @@ export function Playground() {
       </div>
     </div>
   );
-}
+};

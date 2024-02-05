@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import {
   ChainlitAPI,
@@ -11,11 +11,13 @@ import { Playground } from "./Playground";
 const CHAINLIT_SERVER = "https://nautical-cl-be-fxhbdhovha-el.a.run.app";
 const userEnv = {};
 
-const apiClient = new ChainlitAPI(CHAINLIT_SERVER);
+export const apiClient = new ChainlitAPI(CHAINLIT_SERVER);
 
 function ChatChainlit() {
   const { connect, disconnect } = useChatSession();
   const session = useRecoilValue(sessionState);
+
+  const [accessToken, setAccessToken] = useState("");
 
   useEffect(() => {
     if (session?.socket.connected) {
@@ -27,6 +29,7 @@ function ChatChainlit() {
         return res.json();
       })
       .then((data) => {
+        setAccessToken(`${data.token}`)
         connect({
           client: apiClient,
           userEnv,
@@ -37,7 +40,7 @@ function ChatChainlit() {
 
   return (
     <>
-      <Playground />
+      <Playground accessToken={accessToken}/>
     </>
   );
 }
