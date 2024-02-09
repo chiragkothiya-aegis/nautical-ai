@@ -6,6 +6,8 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../shared/authConfig";
 import "./Login.scss";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface ISocialLogin {
   updateAPICreds: (authToken: any) => void;
@@ -17,9 +19,33 @@ const SocialLogin: React.FC<ISocialLogin> = (props: ISocialLogin) => {
   const { instance } = useMsal();
   // const isAuthenticated = useIsAuthenticated();
 
+  const [ user, setUser ] = useState<any>();
+  const [ profile, setProfile ] = useState([]);
+
+  useEffect(
+    () => {
+        if (user) {
+            axios
+                .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                    headers: {
+                        Authorization: `Bearer ${user.access_token}`,
+                        Accept: 'application/json'
+                    }
+                })
+                .then((res) => {
+                  console.log("REspo: ", res.data)
+                    setProfile(res.data);
+                })
+                .catch((err) => console.log(err));
+        }
+    },
+    [ user ]
+);
+
   const login = useGoogleLogin({
     onSuccess: (tokenResponse) => {
       console.log("tokenResponse: ", tokenResponse);
+      setUser(tokenResponse)
       updateAPICreds({ payload: tokenResponse });
     },
     onError: (error) => console.log("error: ", error),

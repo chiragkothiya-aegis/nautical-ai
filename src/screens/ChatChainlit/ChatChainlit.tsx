@@ -7,6 +7,7 @@ import {
 } from "@chainlit/react-client";
 import { useRecoilValue } from "recoil";
 import { Playground } from "./Playground";
+import { API_SERVICE } from "../../shared/api-services";
 
 const CHAINLIT_SERVER = "https://nautical-cl-be-fxhbdhovha-el.a.run.app";
 const userEnv = {};
@@ -24,23 +25,22 @@ function ChatChainlit() {
       return;
     }
 
-    fetch(apiClient.buildEndpoint("/custom-auth"))
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setAccessToken(`${data.token}`)
+    API_SERVICE.getCustomAuth()
+      .then(({ data }) => {
+        localStorage.setItem("token", data.token);
+        setAccessToken(`${data.token}`);
         connect({
           client: apiClient,
           userEnv,
           accessToken: `Bearer: ${data.token}`,
         });
-      });
+      })
+      .catch((e) => API_SERVICE.handelAPiError(e));
   }, [connect]);
 
   return (
     <>
-      <Playground accessToken={accessToken}/>
+      <Playground accessToken={accessToken} />
     </>
   );
 }

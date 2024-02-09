@@ -15,6 +15,7 @@ import { apiClient } from "./ChatChainlit";
 import { Modal } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import "./ChatChainlit.scss";
+import ChatMessage from "./ChatMessage";
 
 const DefaultQuestion = ({ question, onClick }: any) => (
   <button onClick={() => onClick(question)} className="default-question">
@@ -34,6 +35,7 @@ export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
   const { loading } = useChatData();
   const { messages } = useChatMessages();
   const messageListRef = useRef<any>(null);
+  
   const [showDefaultQuestions, setShowDefaultQuestions] = useState(true);
   const [showLoading, setShowLoading] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
@@ -221,13 +223,19 @@ export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
 
   return (
     <div className="chat-container">
-      {showFeedback && renderFeedback()}
+      {/* {showFeedback && renderFeedback()} */}
       <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
         {showDefaultQuestions ? (
           renderDefaultQuestions()
         ) : (
           <div className="message-list" ref={messageListRef}>
-            {messages.map((message) => renderMessage(message))}
+            {/* {messages.map((message) => renderMessage(message))} */}
+            
+            <ChatMessage
+              messages={messages}
+              feedbackIds={feedbackIds}
+              setFeedbackIds={setFeedbackIds}
+            />
             {showLoading && renderLoader()}
           </div>
         )}

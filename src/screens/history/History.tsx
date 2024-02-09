@@ -1,53 +1,56 @@
 import { Button } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PATH_CHAT } from "../layout/RouteConstants";
-import "./History.scss"
+import { PATH_CHAT, PATH_HISTORY } from "../layout/RouteConstants";
+import AppLoading from "../../shared/components/AppLoading/AppLoading";
+import { API_SERVICE } from "../../shared/api-services";
+import "./History.scss";
 
 function History() {
   const navigate = useNavigate();
 
-  const [questions, setQuestions] = useState([
-    {
-      question: "What is the checklist for applying for the MEC 3 certificate?",
-    },
-    {
-      question:
-        "How is the final examination conducted for the MEC 3 certificate?",
-    },
-    {
-      question:
-        "What are the sea service requirements for the MEC 3 certificate?",
-    },
-    {
-      question:
-        "How long does it take to process the application for the MEC 3 certificate?",
-    },
-    {
-      question:
-        "What are the medical examination and eyesight test requirements for the MEC 3 certificate?",
-    },
-    {
-      question: "How is the application fee for the MEC 3 certificate paid?",
-    },
-  ] as any);
+  const [historyList, setHistoryList] = useState([] as any);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    var body = {
+      pagination: {
+        first: 20,
+      },
+      filter: {},
+    };
+
+    setLoading(true);
+    API_SERVICE.threads(body)
+      .then(({ data }) => {
+        setHistoryList(data?.data ?? []);
+      })
+      .catch((e) => API_SERVICE.handelAPiError(e))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
-    <div className="history-view">
-      {questions?.map((item: any) => {
-        return (
-          <Button
-            type="text"
-            style={{ textAlign: "left" }}
-            onClick={() => {
-              navigate(PATH_CHAT, { state: { question: item?.question } });
-            }}
-          >
-            {item?.question}
-          </Button>
-        );
-      })}
-    </div>
+    <>
+      <div className="history-view">
+        <span className="title">Past Chats</span>
+        {historyList?.map((item: any) => {
+          return (
+            <Button
+              type="text"
+              style={{ textAlign: "left" }}
+              onClick={() => {
+                navigate(PATH_HISTORY + `/${item?.id}`, {
+                  state: { question: item?.question },
+                });
+              }}
+            >
+              {item?.metadata?.name}
+            </Button>
+          );
+        })}
+      </div>
+      {loading && <AppLoading />}
+    </>
   );
 }
 

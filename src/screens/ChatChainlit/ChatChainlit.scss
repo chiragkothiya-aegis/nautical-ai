@@ -7,7 +7,7 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 45px);
   justify-content: space-between;
   background-color: #f9f9f9;
   // border: 1px solid #e1e1e1;
@@ -20,7 +20,7 @@
 .message-list {
   flex-grow: 1;
   overflow-y: auto; /* Enable vertical scrolling */
-  padding: 4rem 17rem 1rem 17rem;
+  padding: 3rem 4rem 1rem 4rem;
   background: white;
 
   @media (max-width: 1000px) {
@@ -49,7 +49,7 @@
 }
 
 .input-area input {
-  flex-grow: 0.5;
+  flex-grow: 0.84;
   margin-right: 0.4rem;
   margin-left: 0.3rem;
   padding: 10px;

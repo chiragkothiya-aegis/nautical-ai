@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { ReactComponent as LogoSideBlack } from "../../assets/images/logo_text_side_black.svg";
 import "./AppLayout.scss";
 import { googleLogout } from "@react-oauth/google";
+import History from "../history/History";
 
 const { Content } = Layout;
 
@@ -110,8 +111,11 @@ export default function AppLayout({ children }: any) {
   const renderBody = () => {
     return (
       <>
-        <Content>
-          <div style={{ paddingInline: "0px", paddingBlock: "0px" }}>
+        <Content style={{display:'flex'}}>
+          <div style={{width:'250px'}}> 
+            <History />
+          </div>
+          <div style={{ paddingInline: "0px", paddingBlock: "0px", flex:'1' }}>
             <AppRoutes />
           </div>
         </Content>
@@ -121,7 +125,7 @@ export default function AppLayout({ children }: any) {
 
   return (
     <Layout>
-      <div>
+      <div style={{height:"100vh", overflow:'hidden'}}>
         {renderHeader()}
         {renderBody()}
       </div>
