@@ -2,12 +2,10 @@ import { Button } from "antd";
 import iconGoogle from "../../assets/images/google.svg";
 import iconMicrosoft from "../../assets/images/microsoft.svg";
 import iconApple from "../../assets/images/apple.svg";
-import { useGoogleLogin } from "@react-oauth/google";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "../../shared/authConfig";
+import { URL_AUTH } from "../../shared/api-services";
 import "./Login.scss";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 interface ISocialLogin {
   updateAPICreds: (authToken: any) => void;
@@ -19,37 +17,9 @@ const SocialLogin: React.FC<ISocialLogin> = (props: ISocialLogin) => {
   const { instance } = useMsal();
   // const isAuthenticated = useIsAuthenticated();
 
-  const [ user, setUser ] = useState<any>();
-  const [ profile, setProfile ] = useState([]);
-
-  useEffect(
-    () => {
-        if (user) {
-            axios
-                .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                    headers: {
-                        Authorization: `Bearer ${user.access_token}`,
-                        Accept: 'application/json'
-                    }
-                })
-                .then((res) => {
-                  console.log("REspo: ", res.data)
-                    setProfile(res.data);
-                })
-                .catch((err) => console.log(err));
-        }
-    },
-    [ user ]
-);
-
-  const login = useGoogleLogin({
-    onSuccess: (tokenResponse) => {
-      console.log("tokenResponse: ", tokenResponse);
-      setUser(tokenResponse)
-      updateAPICreds({ payload: tokenResponse });
-    },
-    onError: (error) => console.log("error: ", error),
-  });
+  const actionLoginGoogle = () => {
+    window.location.href = `${URL_AUTH}/login`;
+  };
 
   const handleLoginMicrosoft = () => {
     // if (isAuthenticated) {
@@ -77,7 +47,7 @@ const SocialLogin: React.FC<ISocialLogin> = (props: ISocialLogin) => {
       <div className="social">
         <Button
           icon={<img src={iconGoogle} height={20} />}
-          onClick={() => login()}
+          onClick={() => actionLoginGoogle()}
         >
           Continue with Google
         </Button>

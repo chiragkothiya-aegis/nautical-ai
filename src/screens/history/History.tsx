@@ -1,9 +1,10 @@
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PATH_CHAT, PATH_HISTORY } from "../layout/RouteConstants";
 import AppLoading from "../../shared/components/AppLoading/AppLoading";
 import { API_SERVICE } from "../../shared/api-services";
+import iconSearch from "../../assets/images/search.svg";
 import "./History.scss";
 
 function History() {
@@ -33,6 +34,14 @@ function History() {
     <>
       <div className="history-view">
         <span className="title">Past Chats</span>
+        <Input
+          size="large"
+          className="search-input"
+          prefix={<img src={iconSearch} alt="" />}
+          placeholder="Search"
+          allowClear
+        />
+        {(historyList?.length ?? 0) == 0 && <div className="empty-view">Empty...</div>}
         {historyList?.map((item: any) => {
           return (
             <Button

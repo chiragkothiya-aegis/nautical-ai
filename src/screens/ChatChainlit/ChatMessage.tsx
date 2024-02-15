@@ -3,9 +3,9 @@ import { IFeedback, IStep } from "@chainlit/react-client";
 import ReactMarkdown from "react-markdown";
 import logo from "../../assets/images/logo.svg";
 import { LiaThumbsDownSolid, LiaThumbsUp } from "react-icons/lia";
-import { apiClient } from "./ChatChainlit";
 import { Modal } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import { apiClient } from "../../shared/api-services";
 
 interface IChatMessage {
   messages: IStep[];

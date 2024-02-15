@@ -1,21 +1,15 @@
 import { v4 as uuidv4 } from "uuid";
-import ReactMarkdown from "react-markdown";
 import logo from "../../assets/images/logo.svg";
 import {
   useChatInteract,
   useChatMessages,
   IStep,
   useChatData,
-  IFeedback,
 } from "@chainlit/react-client";
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
-import { LiaThumbsDownSolid, LiaThumbsUp } from "react-icons/lia";
-import { apiClient } from "./ChatChainlit";
-import { Modal } from "antd";
-import TextArea from "antd/es/input/TextArea";
-import "./ChatChainlit.scss";
 import ChatMessage from "./ChatMessage";
+import "./ChatChainlit.scss";
 
 const DefaultQuestion = ({ question, onClick }: any) => (
   <button onClick={() => onClick(question)} className="default-question">
@@ -23,25 +17,17 @@ const DefaultQuestion = ({ question, onClick }: any) => (
   </button>
 );
 
-interface IPlayground {
-  accessToken: string;
-}
+interface IPlayground {}
 
 export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
-  const { accessToken } = props;
-
   const [inputValue, setInputValue] = useState("");
   const { sendMessage } = useChatInteract();
   const { loading } = useChatData();
   const { messages } = useChatMessages();
   const messageListRef = useRef<any>(null);
-  
+
   const [showDefaultQuestions, setShowDefaultQuestions] = useState(true);
   const [showLoading, setShowLoading] = useState(false);
-  const [showFeedback, setShowFeedback] = useState(false);
-  const [feedbackText, setFeedbackText] = useState(undefined as any);
-  const [voteType, setVoteType] = useState(0);
-  const [selectedMessage, setSelectedMessage] = useState({} as IStep);
   const [feedbackIds, setFeedbackIds] = useState([] as any);
 
   const defaultQuestions = [
@@ -78,118 +64,6 @@ export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
     }
   };
 
-  const actionFeedback = (message: IStep) => {
-    const find = feedbackIds?.find(
-      (item: any) => item?.messageId == message?.id
-    );
-
-    const feedback: IFeedback = {
-      id: find?.feedbackId,
-      comment: feedbackText,
-      forId: message?.id,
-      strategy: "BINARY",
-      value: voteType,
-    };
-
-    apiClient
-      .setFeedback(feedback, accessToken)
-      .then((res) => {
-        const feedback = {
-          messageId: message?.id,
-          feedbackId: res.feedbackId,
-          type: voteType,
-        };
-        const tmp = [...feedbackIds];
-        let index = tmp.findIndex((item) => item?.messageId == message?.id);
-        if (index !== -1) {
-          tmp[index] = feedback;
-        } else {
-          tmp.push(feedback);
-        }
-        setFeedbackIds(tmp);
-      })
-      .catch((e) => {
-        console.log("E: ", e);
-      });
-  };
-
-  const renderMessage = (message: IStep) => {
-    const find = feedbackIds?.find(
-      (item: any) => item?.messageId == message?.id
-    );
-
-    return (
-      <div key={message.id} className={`message`}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: "10px",
-          }}
-        >
-          <img src={logo} alt="Bot" className="bot-icon" />
-          <div>{message.type == "user_message" ? "You" : "Nautical Bot"}</div>
-        </div>
-        <p>
-          <ReactMarkdown>{message.output}</ReactMarkdown>
-        </p>
-        {message.type == "assistant_message" && (
-          <div className={"feedback-button"}>
-            <LiaThumbsUp
-              className={"thumb-up"}
-              size={20}
-              fill={find?.type == 1 ? "green" : ""}
-              onClick={() => {
-                setVoteType(find?.type == 1 ? 0 : 1);
-                setSelectedMessage(message);
-                setShowFeedback(true);
-              }}
-            />
-            <LiaThumbsDownSolid
-              className={"thumb-down"}
-              size={20}
-              fill={find?.type == -1 ? "red" : ""}
-              onClick={() => {
-                setVoteType(find?.type == -1 ? 0 : -1);
-                setSelectedMessage(message);
-                setShowFeedback(true);
-              }}
-            />
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  const renderFeedback = () => {
-    return (
-      <Modal
-        centered
-        width={350}
-        open={showFeedback}
-        closable={false}
-        okText="Submit"
-        onOk={() => {
-          actionFeedback(selectedMessage);
-          setShowFeedback(false);
-        }}
-        onCancel={() => setShowFeedback(false)}
-      >
-        <div style={{ display: "grid", gap: "20px", paddingBottom: "10px" }}>
-          <span>Provide additional feedback</span>
-          <TextArea
-            name="feedback"
-            bordered
-            style={{ border: "1px solid lightgray" }}
-            onChange={(e) => {
-              setFeedbackText(e.target.value);
-            }}
-          />
-        </div>
-      </Modal>
-    );
-  };
-
   const renderDefaultQuestions = () => {
     return (
       <div className="default-questions-container">
@@ -223,14 +97,11 @@ export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
 
   return (
     <div className="chat-container">
-      {/* {showFeedback && renderFeedback()} */}
       <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
         {showDefaultQuestions ? (
           renderDefaultQuestions()
         ) : (
           <div className="message-list" ref={messageListRef}>
-            {/* {messages.map((message) => renderMessage(message))} */}
-            
             <ChatMessage
               messages={messages}
               feedbackIds={feedbackIds}

@@ -2,8 +2,11 @@ import AXIOS from "axios";
 import { notification } from "antd";
 import { ChainlitAPI } from "@chainlit/react-client";
 
-const CHAINLIT_SERVER = "https://nautical-cl-be-fxhbdhovha-el.a.run.app";
-const apiClient = new ChainlitAPI(CHAINLIT_SERVER);
+export const URL_AUTH = "https://auth-backend-fxhbdhovha-el.a.run.app";
+
+// const CHAINLIT_SERVER = "https://nautical-cl-be-fxhbdhovha-el.a.run.app";
+export const CHAINLIT_SERVER = "https://agent-backend-auth-fxhbdhovha-el.a.run.app";
+export const apiClient = new ChainlitAPI(CHAINLIT_SERVER);
 
 function createPublicInstance() {
   const headers: any = {};
@@ -30,9 +33,9 @@ const handelAPiError = (error: any) => {
   return message;
 };
 
-async function getCustomAuth() {
+async function getCustomAuth(payload: any) {
   const instance = createPublicInstance();
-  return await instance.get(apiClient.buildEndpoint(`/custom-auth`));
+  return await instance.post(apiClient.buildEndpoint(`/custom-auth`), payload);
 }
 
 async function threads(payload: any) {

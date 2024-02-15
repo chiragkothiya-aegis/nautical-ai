@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
 import { msalConfig } from "./shared/authConfig";
@@ -23,11 +22,11 @@ root.render(
     <MsalProvider instance={msalInstance}>
       {/* Create cliend id from following url
     https://console.cloud.google.com/apis/credentials?project=nauticalai */}
-      <GoogleOAuthProvider clientId="191151223775-4ld2994ucoec8ji73mi9ldsem6d16htr.apps.googleusercontent.com">
+      {/* <GoogleOAuthProvider clientId="191151223775-4ld2994ucoec8ji73mi9ldsem6d16htr.apps.googleusercontent.com"> */}
         <RecoilRoot>
           <App />
         </RecoilRoot>
-      </GoogleOAuthProvider>
+      {/* </GoogleOAuthProvider> */}
     </MsalProvider>
   </React.StrictMode>
 );

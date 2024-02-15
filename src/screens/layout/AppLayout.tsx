@@ -6,15 +6,15 @@ import { useNavigate } from "react-router-dom";
 import { PATH_CHAT, PATH_HISTORY } from "./RouteConstants";
 import { useEffect, useState } from "react";
 import { ReactComponent as LogoSideBlack } from "../../assets/images/logo_text_side_black.svg";
-import "./AppLayout.scss";
-import { googleLogout } from "@react-oauth/google";
 import History from "../history/History";
+import "./AppLayout.scss";
 
 const { Content } = Layout;
 
 export default function AppLayout({ children }: any) {
   const Navigate = useNavigate();
   const [selectedPath, setSelectedPath] = useState(PATH_CHAT);
+  const [showHistory, setShowHistory] = useState(true);
 
   const items = [
     // {
@@ -41,7 +41,7 @@ export default function AppLayout({ children }: any) {
   const onClickDropDown = ({ key }: any) => {
     if (key === "profile") {
     } else if (key === "logout") {
-      googleLogout();
+      // googleLogout();
       localStorage.clear();
       window.location.reload();
     }
@@ -60,13 +60,6 @@ export default function AppLayout({ children }: any) {
             >
               Chat
             </Button>
-            <Button
-            size="small"
-            type={selectedPath == PATH_HISTORY ? "primary" : "text"}
-            onClick={() => handelOnClick(PATH_HISTORY)}
-          >
-            History
-          </Button>
           </div>
         </div>
         <div className="right-view">
@@ -111,11 +104,17 @@ export default function AppLayout({ children }: any) {
   const renderBody = () => {
     return (
       <>
-        <Content style={{display:'flex'}}>
-          <div style={{width:'250px'}}> 
+        <Content style={{ display: "flex" }}>
+          <div style={{ width: "250px", display: showHistory ? "" : "none" }}>
             <History />
           </div>
-          <div style={{ paddingInline: "0px", paddingBlock: "0px", flex:'1' }}>
+          <div style={{ paddingInline: "0px", paddingBlock: "0px", flex: "1" }}>
+            <div
+              className="menu-view"
+              onClick={() => setShowHistory(!showHistory)}
+            >
+              <div />
+            </div>
             <AppRoutes />
           </div>
         </Content>
@@ -125,7 +124,7 @@ export default function AppLayout({ children }: any) {
 
   return (
     <Layout>
-      <div style={{height:"100vh", overflow:'hidden'}}>
+      <div style={{ height: "100vh", overflow: "hidden" }}>
         {renderHeader()}
         {renderBody()}
       </div>
