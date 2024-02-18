@@ -2,10 +2,10 @@ import AXIOS from "axios";
 import { notification } from "antd";
 import { ChainlitAPI } from "@chainlit/react-client";
 
-export const URL_AUTH = "https://auth-backend-fxhbdhovha-el.a.run.app";
+export const URL_AUTH = "https://nautical-authentication-backend-prod-fxhbdhovha-el.a.run.app";
 
 // const CHAINLIT_SERVER = "https://nautical-cl-be-fxhbdhovha-el.a.run.app";
-export const CHAINLIT_SERVER = "https://agent-backend-auth-fxhbdhovha-el.a.run.app";
+export const CHAINLIT_SERVER = "https://nautical-chainlit-backend-prod-fxhbdhovha-el.a.run.app";
 export const apiClient = new ChainlitAPI(CHAINLIT_SERVER);
 
 function createPublicInstance() {
