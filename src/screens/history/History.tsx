@@ -31,7 +31,7 @@ function History() {
   }, []);
 
   return (
-    <>
+    <div style={{position:'relative'}}>
       <div className="history-view">
         <span className="title">Past Chats</span>
         <Input
@@ -59,7 +59,7 @@ function History() {
         })}
       </div>
       {loading && <AppLoading />}
-    </>
+    </div>
   );
 }
 

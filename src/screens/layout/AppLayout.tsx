@@ -48,6 +48,8 @@ export default function AppLayout({ children }: any) {
   };
 
   const renderHeader = () => {
+    const picture = JSON.parse(localStorage.getItem("user") ?? "{}")?.user_info?.picture;
+    const iconPro = (picture?.length ?? 0) == 0 ?  profileIcon : picture;
     return (
       <div className="header">
         <div className="left-view">
@@ -83,10 +85,11 @@ export default function AppLayout({ children }: any) {
           >
             <Space>
               <img
-                src={profileIcon}
+                src={iconPro ?? ""}
                 alt={"profile"}
                 width="30px"
                 height="30px"
+                style={{borderRadius:'50px'}}
               />
               <DownOutlined
                 style={{

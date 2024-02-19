@@ -44,12 +44,12 @@ export const AuthHandler: React.FC<IAuthHandler> = (props: IAuthHandler) => {
     }
   }, []);
 
-  const getCustomAuth = (payload: any) => {
-    API_SERVICE.getCustomAuth({username: payload.user_info.email})
+  const getCustomAuth = (user: any) => {
+    API_SERVICE.getCustomAuth({username: user.user_info.email})
       .then(({ data }) => {
         if(data?.token) {
           localStorage.setItem("token", data.token);
-          updateAPICreds({ payload: data });
+          updateAPICreds({ payload: user });
         } else {
           API_SERVICE.handelAPiError("")
         }
