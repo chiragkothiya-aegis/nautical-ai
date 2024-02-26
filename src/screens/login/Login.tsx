@@ -36,7 +36,7 @@ function Login() {
               <Card className={"login-form-wrapper"}>
                 <Title level={2}>{"Welcome Back"}</Title>
                 <div className="form-wrapper">
-                  <Form
+                  {/* <Form
                     size="middle"
                     onFinish={(e) => handleSubmit(e, updateAPICreds)}
                     layout="vertical"
@@ -70,7 +70,7 @@ function Login() {
                         {showPassword ? "Login" : "Continue"}
                       </Button>
                     </Form.Item>
-                  </Form>
+                  </Form> */}
                   <span className="text-btn-link">
                     Don't have an account?
                     <Button

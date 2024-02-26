@@ -32,7 +32,7 @@ function Signup() {
               <Card className={"login-form-wrapper"}>
                 <Title level={2}>{"Create your account"}</Title>
                 <div className="form-wrapper">
-                  <Form
+                  {/* <Form
                     size="middle"
                     onFinish={(e) => handleSubmit(e, updateAPICreds)}
                     layout="vertical"
@@ -66,7 +66,7 @@ function Signup() {
                         {showPassword ? "Login" : "Continue"}
                       </Button>
                     </Form.Item>
-                  </Form>
+                  </Form> */}
                   <span className="text-btn-link">
                     Already have an account?
                     <Button

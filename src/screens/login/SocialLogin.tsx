@@ -51,7 +51,7 @@ const SocialLogin: React.FC<ISocialLogin> = (props: ISocialLogin) => {
         >
           Continue with Google
         </Button>
-        <Button
+        {/* <Button
           icon={<img src={iconMicrosoft} height={20} />}
           onClick={() => handleLoginMicrosoft()}
         >
@@ -59,7 +59,7 @@ const SocialLogin: React.FC<ISocialLogin> = (props: ISocialLogin) => {
         </Button>
         <Button icon={<img src={iconApple} height={20} />}>
           Continue with Apple
-        </Button>
+        </Button> */}
       </div>
     </>
   );
