@@ -13,6 +13,10 @@ function HistoryDetail() {
   const [feedbackIds, setFeedbackIds] = useState([] as any);
 
   useEffect(() => {
+    getThreadDetail();
+  }, [id]);
+
+  const getThreadDetail = () => {
     setLoading(true);
     API_SERVICE.threadDetail(id)
       .then(({ data }) => {
@@ -21,7 +25,7 @@ function HistoryDetail() {
       })
       .catch((e) => API_SERVICE.handelAPiError(e))
       .finally(() => setLoading(false));
-  }, []);
+  };
 
   return (
     <>

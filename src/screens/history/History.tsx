@@ -31,7 +31,7 @@ function History() {
   }, []);
 
   return (
-    <div style={{position:'relative'}}>
+    <div style={{ position: "relative" }}>
       <div className="history-view">
         <span className="title">Past Chats</span>
         <Input
@@ -41,7 +41,9 @@ function History() {
           placeholder="Search"
           allowClear
         />
-        {(historyList?.length ?? 0) == 0 && <div className="empty-view">Empty...</div>}
+        {(historyList?.length ?? 0) == 0 && (
+          <div className="empty-view">Empty...</div>
+        )}
         {historyList?.map((item: any) => {
           return (
             <Button
@@ -53,7 +55,7 @@ function History() {
                 });
               }}
             >
-              {item?.metadata?.name}
+              {item?.name}
             </Button>
           );
         })}
