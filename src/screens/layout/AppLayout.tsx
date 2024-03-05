@@ -16,6 +16,8 @@ export default function AppLayout({ children }: any) {
   const [selectedPath, setSelectedPath] = useState(PATH_CHAT);
   const [showHistory, setShowHistory] = useState(true);
 
+  const [width, setWidth] = useState<number>(window.innerWidth);
+
   const items = [
     // {
     //   key: "profile",
@@ -28,6 +30,19 @@ export default function AppLayout({ children }: any) {
       icon: "",
     },
   ];
+
+  const isMobile = width <= 768;
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
 
   useEffect(() => {
     const path = new URL(window.location.href).pathname;
@@ -53,31 +68,31 @@ export default function AppLayout({ children }: any) {
     const iconPro = (picture?.length ?? 0) == 0 ? profileIcon : picture;
     return (
       <div className="header">
-          <Dropdown
-            menu={{
-              items,
-              onClick: onClickDropDown,
-            }}
-            placement="bottomRight"
-            arrow
-          >
-            <Space>
-              <img
-                src={iconPro ?? ""}
-                alt={"profile"}
-                width="30px"
-                height="30px"
-                style={{ borderRadius: "50px" }}
-              />
-              name
-              <DownOutlined
-                style={{
-                  marginRight: "5px",
-                  marginBottom: "4px",
-                }}
-              />
-            </Space>
-          </Dropdown>
+        <Dropdown
+          menu={{
+            items,
+            onClick: onClickDropDown,
+          }}
+          placement="bottomRight"
+          arrow
+        >
+          <Space>
+            <img
+              src={iconPro ?? ""}
+              alt={"profile"}
+              width="30px"
+              height="30px"
+              style={{ borderRadius: "50px" }}
+            />
+            name
+            <DownOutlined
+              style={{
+                marginRight: "5px",
+                marginBottom: "4px",
+              }}
+            />
+          </Space>
+        </Dropdown>
       </div>
     );
   };
@@ -91,6 +106,8 @@ export default function AppLayout({ children }: any) {
               height: "100%",
               width: "250px",
               display: showHistory ? "" : "none",
+              // position: showHistory ? "absolute" : "fixed",
+              // zIndex: "1",
             }}
           >
             <History />

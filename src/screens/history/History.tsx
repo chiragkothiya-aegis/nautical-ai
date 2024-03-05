@@ -1,12 +1,15 @@
-import { Button, Input } from "antd";
+import { Button, Collapse, Input } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PATH_CHAT, PATH_HISTORY } from "../layout/RouteConstants";
 import AppLoading from "../../shared/components/AppLoading/AppLoading";
 import { API_SERVICE } from "../../shared/api-services";
 import iconSearch from "../../assets/images/search.svg";
+import iconMessage from "../../assets/images/message.png";
 import logo from "../../assets/images/logo.png";
 import "./History.scss";
+
+const { Panel } = Collapse;
 
 function History() {
   const navigate = useNavigate();
@@ -52,11 +55,13 @@ function History() {
           placeholder="Search"
           allowClear
         /> */}
-        <span className="recent">Recent</span>
-        {(historyList?.length ?? 0) == 0 && (
+
+        {(historyList?.length ?? 0) == 0 ? (
           <div className="empty-view">Empty...</div>
+        ) : (
+          <span className="recent">Recent</span>
         )}
-        {historyList?.map((item: any) => {
+        {historyList?.slice(0, 5)?.map((item: any) => {
           return (
             <Button
               type="text"
@@ -67,10 +72,34 @@ function History() {
                 });
               }}
             >
-              {item?.name}
+              <img src={iconMessage} />
+              {`item?.name ${item}`}
             </Button>
           );
         })}
+
+        {(historyList?.length ?? 0) > 5 && (
+          <Collapse className="view-all-collapse">
+            <Panel header={"View All"} key={"1"}>
+              {historyList?.slice(5)?.map((item: any) => {
+                return (
+                  <Button
+                    type="text"
+                    style={{ textAlign: "left", width: "100%" }}
+                    onClick={() => {
+                      navigate(PATH_HISTORY + `/${item?.id}`, {
+                        state: { question: item?.question },
+                      });
+                    }}
+                  >
+                    <img src={iconMessage} />
+                    {`item?.name ${item}`}
+                  </Button>
+                );
+              })}
+            </Panel>
+          </Collapse>
+        )}
       </div>
       {loading && <AppLoading />}
     </div>

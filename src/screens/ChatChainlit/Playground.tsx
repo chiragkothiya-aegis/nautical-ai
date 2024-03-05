@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import logo from "../../assets/images/logo.svg";
+import iconSend from "../../assets/images/send.png";
 import {
   useChatInteract,
   useChatMessages,
@@ -127,11 +127,14 @@ export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
             }}
             placeholder="What do you need help with?"
           />
-          <AiOutlineSend
+          <div className="send">
+            <img src={iconSend} />
+          </div>
+          {/* <AiOutlineSend
             onClick={() => handleSendMessage(inputValue)}
             className={"send-button"}
             size={40}
-          />
+          /> */}
         </div>
         <div className={"footer-message"}>
           <p>

@@ -19,6 +19,7 @@
 
   .recent {
     color: $color-primary;
+    margin-left: 10px;
   }
   .title {
     font-size: 16px;
@@ -28,18 +29,47 @@
   }
 
   .ant-btn {
-    // height: 50px !important;
-    // flex: 1;
-    span{
+    display: flex;
+    gap: 5px;
+    padding-inline: 8px;
+    img {
+      height: 20px;
+      width: 20px;
+    }
+    span {
       width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
+      color: $color-text;
     }
   }
 }
 
 .empty-view {
-  background-color: #0000FF20;
+  background-color: #0000ff20;
   padding: 10px;
   border-radius: 6px;
+}
+
+.view-all-collapse {
+  border: none;
+  .ant-collapse-item {
+    border: none;
+    .ant-collapse-header {
+      padding: 0px;
+      padding-left: 10px;
+      color: $color-primary;
+      border: none;
+      background-color: $color-bg;
+      .ant-collapse-expand-icon {
+        padding-inline-end: 6px;
+      }
+    }
+    .ant-collapse-content {
+      .ant-collapse-content-box {
+        padding: 0px;
+        background-color: $color-bg;
+      }
+    }
+  }
 }
