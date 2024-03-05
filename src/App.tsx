@@ -21,35 +21,45 @@ import Products from "./screens/Products/Products";
 import AuthHandler from "./screens/login/AuthHandler";
 import "./styles/_antd.scss";
 import "./App.scss";
+import Footer from "./screens/Footer";
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <AuthConsumer>
-          {({ isAuth, updateAPICreds }) => {
-            return isAuth ? (
-              <AppLayout />
-            ) : (
-              <Routes>
-                <Route
-                  path={PATH_AUTH}
-                  element={<AuthHandler updateAPICreds={updateAPICreds} />}
-                />
-                <Route path={PATH_LOGIN} element={<Login />} />
-                <Route path={PATH_SIGNUP} element={<Signup />} />
-                <Route path={PATH_ABOUT} element={<About />} />
-                <Route path={PATH_COMPANY} element={<Company />} />
-                <Route path={PATH_CONTACT} element={<Contact />} />
-                <Route path={PATH_PRODUCTS} element={<Products />} />
-                <Route path={"/"} element={<Home />} />
-                <Route path="/*" element={<Navigate to={"/"} />} />
-              </Routes>
-            );
-          }}
-        </AuthConsumer>
-      </BrowserRouter>
-    </AuthProvider>
+    <>
+      <div style={{height:'calc(100vh - 62px)'}}>
+      <AuthProvider>
+        <BrowserRouter>
+          <AuthConsumer>
+            {({ isAuth, updateAPICreds }) => {
+              return isAuth ? (
+                <AppLayout />
+              ) : (
+                <Routes>
+                  <Route
+                    path={PATH_AUTH}
+                    element={<AuthHandler updateAPICreds={updateAPICreds} />}
+                  />
+                  {/* <Route path={PATH_LOGIN} element={<Login />} />
+                <Route path={PATH_SIGNUP} element={<Signup />} /> */}
+                  <Route path={PATH_ABOUT} element={<About />} />
+                  <Route path={PATH_COMPANY} element={<Company />} />
+                  <Route path={PATH_CONTACT} element={<Contact />} />
+                  <Route path={PATH_PRODUCTS} element={<Products />} />
+                  {/* <Route path={"/"} element={<Home />} /> */}
+                  <Route path={"/"} element={<Home />}>
+                    <Route path={PATH_LOGIN} element={<Login />} />
+                    <Route path={PATH_SIGNUP} element={<Signup />} />
+                  </Route>
+                  <Route path="/*" element={<Navigate to={"/"} />} />
+                </Routes>
+              );
+            }}
+          </AuthConsumer>
+        </BrowserRouter>
+      </AuthProvider>
+      </div>
+      <Footer />
+    </>
   );
 }
 

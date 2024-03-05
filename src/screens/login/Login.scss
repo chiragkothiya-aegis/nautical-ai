@@ -1,18 +1,19 @@
 @import "../../styles/Mixins.scss";
+@import "../../styles/Variables.scss";
 
 .login {
-  height: 100vh;
-  padding: 0;
   text-align: center;
-  min-height: 100%;
-  margin: 0 !important;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  overflow: auto;
   .login-wrapper {
-    min-width: 350px;
+    min-width: 300px;
     max-width: 400px;
+  }
+  .signup-wrapper {
+    min-width: 500px;
+    max-width: 500px;
   }
   .logo {
     width: 122px;
@@ -26,6 +27,10 @@
     width: 100%;
     // @include box-shadow(0px 4px 22px rgba(0, 0, 0, 0.1));
     border: none;
+    .tit {
+      color: $color-primary;
+      font-size: 20px;
+    }
     .form-wrapper {
       margin-top: 30px;
       text-align: left;
@@ -37,8 +42,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 10px;
+  color: $color-text;
   .ant-btn {
-    color: dodgerblue;
+    color: $color-primary;
   }
 }
 
@@ -63,4 +70,12 @@
     display: flex;
     align-items: center;
   }
+}
+
+.btn-forgotPassword {
+  color: $color-primary;
+}
+
+.text-checkbox {
+  color: $color-text;
 }

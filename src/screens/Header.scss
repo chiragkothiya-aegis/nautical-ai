@@ -1,3 +1,5 @@
+@import "../styles/Variables.scss";
+
 .header-view {
   display: flex;
   justify-content: space-between;
@@ -12,5 +14,29 @@
     justify-content: right;
     align-items: center;
     padding-right: 10px;
+  }
+}
+
+.footer-view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-bg;
+  height: 60px;
+  margin-top: 2px;
+  padding-inline: 20px;
+  .sub-view {
+    display: grid;
+    .ant-btn {
+      color: $color-text;
+      padding: 0px;
+      height: 23px;
+      &.left {
+        text-align: left;
+      }
+      &.right {
+        text-align: left;
+      }
+    }
   }
 }

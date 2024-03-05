@@ -75,17 +75,20 @@ const FormInput = (props: IFormInput) => {
   return (
     <>
       <Form.Item
-        className={
-          `field-bg ${isBorder ? "field-border" : ""} ` + classNameForm
-        }
-        style={style}
+        // className={
+        //   `field-bg ${isBorder ? "field-border" : ""} ` + classNameForm
+        // }
+        // style={style}
+        className="custome-field"
         name={name}
         label={label}
         initialValue={initialValue}
         rules={[
           {
             required: isRequired,
-            message: `Please enter your ${requiredLabel ?? label}`,
+            message: `Please enter your ${
+              requiredLabel ?? label ?? placeholder
+            }`,
           },
           ...(rules ?? []),
         ]}
@@ -98,7 +101,6 @@ const FormInput = (props: IFormInput) => {
             min={min}
             onChange={onChange}
             onBlur={onBlur}
-            bordered={false}
           />
         ) : (
           <Input

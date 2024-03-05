@@ -126,8 +126,8 @@ export default function AppLayout({ children }: any) {
   };
 
   return (
-    <Layout>
-      <div style={{ height: "100vh", overflow: "hidden" }}>
+    <Layout style={{height:"100%"}}>
+      <div style={{ height: "100%", overflow: "auto" }}>
         {renderHeader()}
         {renderBody()}
       </div>

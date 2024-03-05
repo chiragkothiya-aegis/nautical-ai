@@ -1,4 +1,4 @@
-import { Button, Card, Form, Input, Typography } from "antd";
+import { Button, Card, Form, Input, List, Typography } from "antd";
 import { AuthConsumer } from "../../shared/AuthContext/AuthContext";
 import FormInput from "../../shared/components/FormInput/FormInput";
 import iconGoogle from "../../assets/images/google.svg";
@@ -34,43 +34,55 @@ function Login() {
           <div className="login">
             <div className="login-wrapper">
               <Card className={"login-form-wrapper"}>
-                <Title level={2}>{"Welcome Back"}</Title>
+                <span className="tit">Login</span>
                 <div className="form-wrapper">
-                  {/* <Form
-                    size="middle"
+                  <Form
+                    size="small"
                     onFinish={(e) => handleSubmit(e, updateAPICreds)}
                     layout="vertical"
                     requiredMark={false}
-                    style={{ gap: "10px", display: "grid" }}
                   >
                     <FormInput
                       name={"email"}
                       type="email"
-                      label="Email"
-                      isBorder
+                      placeholder="Email"
                       isRequired
                     />
-                    {showPassword && (
-                      <FormInput
-                        name={"password"}
-                        type="password"
-                        label="Password"
-                        isBorder
-                        isRequired
-                      />
-                    )}
-                    <Form.Item>
+                    <FormInput
+                      name={"password"}
+                      type="password"
+                      placeholder="Password"
+                      isRequired
+                    />
+
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        marginTop: "20px",
+                      }}
+                    >
                       <Button
-                        type="primary"
-                        htmlType="submit"
-                        // loading={loading}
-                        size={"large"}
+                        type="text"
+                        size={"middle"}
                         style={{ width: "100%" }}
+                        className="btn-forgotPassword"
                       >
-                        {showPassword ? "Login" : "Continue"}
+                        Forgot Password?
                       </Button>
-                    </Form.Item>
-                  </Form> */}
+                      <Form.Item style={{ width: "100%" }}>
+                        <Button
+                          type="primary"
+                          htmlType="submit"
+                          // loading={loading}
+                          size={"middle"}
+                          style={{ width: "100%" }}
+                        >
+                          {"Login"}
+                        </Button>
+                      </Form.Item>
+                    </div>
+                  </Form>
                   <span className="text-btn-link">
                     Don't have an account?
                     <Button
@@ -82,7 +94,7 @@ function Login() {
                       Sign up
                     </Button>
                   </span>
-                  <SocialLogin updateAPICreds={updateAPICreds} />
+                  {/* <SocialLogin updateAPICreds={updateAPICreds} /> */}
                 </div>
               </Card>
             </div>

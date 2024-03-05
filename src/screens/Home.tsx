@@ -6,7 +6,8 @@ import docking from "../assets/images/docking.png";
 import image1 from "../assets/images/image1.png";
 import image2 from "../assets/images/image2.png";
 import image3 from "../assets/images/image3.png";
-import { useNavigate } from "react-router-dom";
+import logo from "../assets/images/logo.png";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   PATH_ABOUT,
   PATH_COMPANY,
@@ -17,6 +18,8 @@ import {
 } from "./layout/RouteConstants";
 import WriteLikeChatGPT from "../shared/components/WriteLikeChatGPT";
 import { useEffect, useState } from "react";
+import Signup from "./login/Signup";
+import Login from "./login/Login";
 import "./Home.scss";
 
 function Home() {
@@ -52,6 +55,8 @@ function Home() {
 
   const images = [image1, image2, image3];
 
+  const { pathname } = useLocation();
+
   useEffect(() => {
     const interval = setInterval(() => {
       const random = Math.floor(Math.random() * images.length);
@@ -67,14 +72,16 @@ function Home() {
     return (
       <div className="home-main-view">
         <div className="left-view-home">
-          <LogoSide />
+          {/* <LogoSide /> */}
+          <img src={logo} width={"150px"} />
           <div style={{ marginTop: "10px", paddingBlock: "20px" }}>
             <span className="desc">{question.question}</span>
-            <WriteLikeChatGPT text={question.answer} />
+            {/* <WriteLikeChatGPT text={question.answer} /> */}
           </div>
         </div>
         <div className="right-view-home">
-          <div className="header-home">
+          {pathname == PATH_SIGNUP ? <Signup /> : <Login />}
+          {/* <div className="header-home">
             <Button type={"text"} onClick={() => navigate(PATH_PRODUCTS)}>
               Products
             </Button>
@@ -116,7 +123,7 @@ function Home() {
               <div className="divider" />
               <Button type={"text"}>Privacy policy </Button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     );
@@ -178,9 +185,9 @@ function Home() {
   return (
     <>
       {renderTop()}
-      {renderSecond()}
+      {/* {renderSecond()}
       {renderThird()}
-      {renderFooter()}
+      {renderFooter()} */}
     </>
   );
 }
