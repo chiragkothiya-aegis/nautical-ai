@@ -48,33 +48,11 @@ export default function AppLayout({ children }: any) {
   };
 
   const renderHeader = () => {
-    const picture = JSON.parse(localStorage.getItem("user") ?? "{}")?.user_info?.picture;
-    const iconPro = (picture?.length ?? 0) == 0 ?  profileIcon : picture;
+    const picture = JSON.parse(localStorage.getItem("user") ?? "{}")?.user_info
+      ?.picture;
+    const iconPro = (picture?.length ?? 0) == 0 ? profileIcon : picture;
     return (
       <div className="header">
-        <div className="left-view">
-          <LogoSideBlack height={30} width={140} />
-          <div>
-            <Button
-              size="small"
-              type={selectedPath == PATH_CHAT ? "primary" : "text"}
-              onClick={() => handelOnClick(PATH_CHAT)}
-            >
-              Chat
-            </Button>
-          </div>
-        </div>
-        <div className="right-view">
-          <Button
-            size="small"
-            icon={<PlusOutlined />}
-            onClick={() => {
-              Navigate(PATH_CHAT);
-              window?.location?.reload();
-            }}
-          >
-            New Chat
-          </Button>
           <Dropdown
             menu={{
               items,
@@ -89,8 +67,9 @@ export default function AppLayout({ children }: any) {
                 alt={"profile"}
                 width="30px"
                 height="30px"
-                style={{borderRadius:'50px'}}
+                style={{ borderRadius: "50px" }}
               />
+              name
               <DownOutlined
                 style={{
                   marginRight: "5px",
@@ -99,7 +78,6 @@ export default function AppLayout({ children }: any) {
               />
             </Space>
           </Dropdown>
-        </div>
       </div>
     );
   };
@@ -107,28 +85,43 @@ export default function AppLayout({ children }: any) {
   const renderBody = () => {
     return (
       <>
-        <Content style={{ display: "flex" }}>
-          <div style={{ width: "250px", display: showHistory ? "" : "none" }}>
+        <div style={{ display: "flex", height: "100%" }}>
+          <div
+            style={{
+              height: "100%",
+              width: "250px",
+              display: showHistory ? "" : "none",
+            }}
+          >
             <History />
           </div>
-          <div style={{ paddingInline: "0px", paddingBlock: "0px", flex: "1" }}>
+          <div
+            style={{
+              paddingInline: "0px",
+              paddingBlock: "0px",
+              flex: "1",
+              height: "100%",
+              overflow: "auto",
+            }}
+          >
             <div
               className="menu-view"
               onClick={() => setShowHistory(!showHistory)}
             >
               <div />
             </div>
+            {renderHeader()}
             <AppRoutes />
           </div>
-        </Content>
+        </div>
       </>
     );
   };
 
   return (
-    <Layout style={{height:"100%"}}>
+    <Layout style={{ height: "100%" }}>
       <div style={{ height: "100%", overflow: "auto" }}>
-        {renderHeader()}
+        {/* {renderHeader()} */}
         {renderBody()}
       </div>
     </Layout>

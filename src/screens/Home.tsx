@@ -1,6 +1,4 @@
-import { Button, Divider } from "antd";
-import { ReactComponent as LogoSide } from "../assets/images/logo_text_side.svg";
-import { ReactComponent as LogoBlack } from "../assets/images/logo_text_black.svg";
+import { Button } from "antd";
 import { ReactComponent as LogoText } from "../assets/images/logo_text.svg";
 import docking from "../assets/images/docking.png";
 import image1 from "../assets/images/image1.png";
@@ -8,14 +6,7 @@ import image2 from "../assets/images/image2.png";
 import image3 from "../assets/images/image3.png";
 import logo from "../assets/images/logo.png";
 import { useLocation, useNavigate } from "react-router-dom";
-import {
-  PATH_ABOUT,
-  PATH_COMPANY,
-  PATH_CONTACT,
-  PATH_LOGIN,
-  PATH_PRODUCTS,
-  PATH_SIGNUP,
-} from "./layout/RouteConstants";
+import { PATH_SIGNUP } from "./layout/RouteConstants";
 import WriteLikeChatGPT from "../shared/components/WriteLikeChatGPT";
 import { useEffect, useState } from "react";
 import Signup from "./login/Signup";
@@ -23,8 +14,6 @@ import Login from "./login/Login";
 import "./Home.scss";
 
 function Home() {
-  const navigate = useNavigate();
-
   const [imageSecondPage, setImageSecondPage] = useState(image1);
 
   const questions = [

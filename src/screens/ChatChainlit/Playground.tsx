@@ -9,13 +9,8 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import ChatMessage from "./ChatMessage";
+import { List } from "antd";
 import "./ChatChainlit.scss";
-
-const DefaultQuestion = ({ question, onClick }: any) => (
-  <button onClick={() => onClick(question)} className="default-question">
-    {question}
-  </button>
-);
 
 interface IPlayground {}
 
@@ -67,20 +62,26 @@ export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
   const renderDefaultQuestions = () => {
     return (
       <div className="default-questions-container">
-        <div className={"landing-page-logo"}>
-          <img src={logo} alt={"landing-page-logo"} />
-        </div>
-        <div className={"welcome-message"}>
-          <h4>How can I help you today?</h4>
-        </div>
-        <div className={"default-questions-list"}>
-          {defaultQuestions.map((question) => (
-            <DefaultQuestion
-              key={question}
-              question={question}
-              onClick={() => handleSendMessage(question)}
-            />
-          ))}
+        <span className="ask-text">
+          Ask <span>NauticalAI</span>
+        </span>
+
+        <div style={{ flex: 1, display: "contents" }}>
+          <List
+            className="question-list"
+            grid={{ gutter: 0, column: 3, xs: 1 }}
+            dataSource={defaultQuestions}
+            renderItem={(question) => (
+              <List.Item style={{ marginBottom: "0px" }}>
+                <button
+                  onClick={() => handleSendMessage(question)}
+                  className="default-question"
+                >
+                  {question}
+                </button>
+              </List.Item>
+            )}
+          />
         </div>
       </div>
     );
@@ -97,7 +98,7 @@ export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
 
   return (
     <div className="chat-container">
-      <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
+      <div style={{ height: "100%", display: "flex", flexDirection: "column", }}>
         {showDefaultQuestions ? (
           renderDefaultQuestions()
         ) : (

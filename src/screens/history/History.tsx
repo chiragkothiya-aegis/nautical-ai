@@ -5,6 +5,7 @@ import { PATH_CHAT, PATH_HISTORY } from "../layout/RouteConstants";
 import AppLoading from "../../shared/components/AppLoading/AppLoading";
 import { API_SERVICE } from "../../shared/api-services";
 import iconSearch from "../../assets/images/search.svg";
+import logo from "../../assets/images/logo.png";
 import "./History.scss";
 
 function History() {
@@ -31,16 +32,27 @@ function History() {
   }, []);
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", height: "100%" }}>
       <div className="history-view">
-        <span className="title">Past Chats</span>
-        <Input
+        <div
+          style={{
+            display: "grid",
+            justifyContent: "center",
+            gap: "30px",
+            marginBlock: "20px",
+          }}
+        >
+          <img src={logo} width={"150px"} />
+          <Button>Discuss</Button>
+        </div>
+        {/* <Input
           size="large"
           className="search-input"
           prefix={<img src={iconSearch} alt="" />}
           placeholder="Search"
           allowClear
-        />
+        /> */}
+        <span className="recent">Recent</span>
         {(historyList?.length ?? 0) == 0 && (
           <div className="empty-view">Empty...</div>
         )}

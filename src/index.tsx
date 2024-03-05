@@ -9,7 +9,7 @@ import { msalConfig } from "./shared/authConfig";
 // Bootstrap components
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import "./index.css";
+import "./index.scss";
 import { RecoilRoot } from "recoil";
 
 const msalInstance = new PublicClientApplication(msalConfig);

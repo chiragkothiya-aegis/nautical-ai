@@ -1,27 +1,8 @@
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: end;
   padding-block: 6px;
   padding-inline: 10px;
-  background-color: rgb(240, 240, 240);
-  .left-view {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    @media (max-width: 768px) {
-      display: grid;
-    }
-  }
-  .right-view {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    @media (max-width: 768px) {
-      display: flex;
-      flex-direction: column-reverse;
-      align-items: end;
-    }
-  }
 }
 
 .menu-view {

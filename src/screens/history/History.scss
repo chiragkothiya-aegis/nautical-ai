@@ -1,12 +1,14 @@
+@import "../../styles/Variables.scss";
+
 .history-view {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  height: calc(100vh - 40px);
+  height: 100%;
   overflow: auto;
-  background: #ffffff;
-  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.08);
+  background: $color-bg;
   margin-right: 5px;
+  padding-top: 10px;
   padding-bottom: 30px;
   padding-inline: 10px;
 
@@ -15,7 +17,9 @@
   scrollbar-width: none;
   /* Firefox */
 
-
+  .recent {
+    color: $color-primary;
+  }
   .title {
     font-size: 16px;
     font-weight: bold;
