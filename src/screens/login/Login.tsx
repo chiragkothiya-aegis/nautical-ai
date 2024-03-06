@@ -94,7 +94,7 @@ function Login() {
                       Sign up
                     </Button>
                   </span>
-                  {/* <SocialLogin updateAPICreds={updateAPICreds} /> */}
+                  <SocialLogin updateAPICreds={updateAPICreds} />
                 </div>
               </Card>
             </div>

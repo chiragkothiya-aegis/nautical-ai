@@ -33,6 +33,9 @@ export default function AppLayout({ children }: any) {
 
   const isMobile = width <= 768;
 
+  console.log("width: ", width);
+  console.log("isMobile: ", isMobile);
+
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
   }
@@ -100,14 +103,21 @@ export default function AppLayout({ children }: any) {
   const renderBody = () => {
     return (
       <>
-        <div style={{ display: "flex", height: "100%" }}>
+        <div
+          style={{ display: "flex", height: "100%" }}
+          onClick={() => {
+            if (showHistory && isMobile) {
+              setShowHistory(false);
+            }
+          }}
+        >
           <div
             style={{
               height: "100%",
-              width: "250px",
+              width: isMobile ? "300px" : "250px",
               display: showHistory ? "" : "none",
-              // position: showHistory ? "absolute" : "fixed",
-              // zIndex: "1",
+              position: isMobile ? "absolute" : "relative",
+              zIndex: "1",
             }}
           >
             <History />
@@ -123,6 +133,7 @@ export default function AppLayout({ children }: any) {
           >
             <div
               className="menu-view"
+              style={{ top: isMobile ? "5px" : "50%" }}
               onClick={() => setShowHistory(!showHistory)}
             >
               <div />

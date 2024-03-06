@@ -65,7 +65,7 @@ function Home() {
           <img src={logo} width={"150px"} />
           <div style={{ marginTop: "10px", paddingBlock: "20px" }}>
             <span className="desc">{question.question}</span>
-            {/* <WriteLikeChatGPT text={question.answer} /> */}
+            <WriteLikeChatGPT text={question.answer} />
           </div>
         </div>
         <div className="right-view-home">
