@@ -7,6 +7,7 @@ import { API_SERVICE } from "../../shared/api-services";
 import iconSearch from "../../assets/images/search.svg";
 import iconMessage from "../../assets/images/message.png";
 import logo from "../../assets/images/logo.png";
+import { ReactComponent as IconPlus } from "../../assets/images/plus.svg";
 import "./History.scss";
 
 const { Panel } = Collapse;
@@ -37,16 +38,19 @@ function History() {
   return (
     <div style={{ position: "relative", height: "100%" }}>
       <div className="history-view">
-        <div
-          style={{
-            display: "grid",
-            justifyContent: "center",
-            gap: "30px",
-            marginBlock: "20px",
-          }}
-        >
+        <div className="history-header">
           <img src={logo} width={"150px"} />
-          <Button>Discuss</Button>
+          <Button
+            style={{ width: "90px" }}
+            onClick={() => {
+              navigate(PATH_CHAT);
+              window.location.reload();
+            }}
+          >
+            {/* <img src={iconPlus} /> */}
+            <IconPlus fill="red" />
+            <span className="primary-txt">Discuss</span>
+          </Button>
         </div>
         {/* <Input
           size="large"
@@ -73,7 +77,7 @@ function History() {
               }}
             >
               <img src={iconMessage} />
-              {`item?.name ${item}`}
+              {item?.name}
             </Button>
           );
         })}
@@ -93,7 +97,7 @@ function History() {
                     }}
                   >
                     <img src={iconMessage} />
-                    {`item?.name ${item}`}
+                    {item?.name}
                   </Button>
                 );
               })}

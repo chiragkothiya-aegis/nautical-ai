@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import AppLayout from "./screens/layout/AppLayout";
 import { AuthConsumer, AuthProvider } from "./shared/AuthContext/AuthContext";
@@ -24,39 +24,63 @@ import "./App.scss";
 import Footer from "./screens/Footer";
 
 function App() {
+  
+  // useEffect(() => {
+  //   const user = {
+  //     user_info: {
+  //       id: "106703632203912445331",
+  //       email: "chiragios.aegis@gmail.com",
+  //       verified_email: true,
+  //       name: "Chirag Kothiya",
+  //       given_name: "Chirag",
+  //       family_name: "Kothiya",
+  //       picture:
+  //         "https://lh3.googleusercontent.com/a/ACg8ocLwMYoU5xVUHdjSvoLm3lWRw27jBcWPX1UAspA73L4-=s96-c",
+  //       locale: "en",
+  //     },
+  //     token:
+  //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWVyIjoiY3VycmVudFVzZXJFbWFpbCIsIm1ldGFkYXRhIjp7fSwiZXhwIjoxNzExMTA0MTgyfQ.dr38irkT-demPcp1R9rz-jqUCI2oApzHm3MmSByKyck",
+  //   };
+  //   localStorage.setItem(
+  //     "token",
+  //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZGVudGlmaWVyIjoiY2hpcmFnaW9zLmFlZ2lzQGdtYWlsLmNvbSIsIm1ldGFkYXRhIjp7fSwiZXhwIjoxNzExMTA0MTgyfQ.Rzz_5T-LVfW6O2w4eL_8Ojz4nk5gzx8zYkNcgz0T3f4"
+  //   );
+  //   localStorage.setItem("user", JSON.stringify(user));
+  // });
+
   return (
     <>
-      <div style={{height:'calc(100vh - 62px)'}}>
-      <AuthProvider>
-        <BrowserRouter>
-          <AuthConsumer>
-            {({ isAuth, updateAPICreds }) => {
-              return isAuth ? (
-                <AppLayout />
-              ) : (
-                <Routes>
-                  <Route
-                    path={PATH_AUTH}
-                    element={<AuthHandler updateAPICreds={updateAPICreds} />}
-                  />
-                  {/* <Route path={PATH_LOGIN} element={<Login />} />
+      <div style={{ height: "calc(100vh - 62px)" }}>
+        <AuthProvider>
+          <BrowserRouter>
+            <AuthConsumer>
+              {({ isAuth, updateAPICreds }) => {
+                return isAuth ? (
+                  <AppLayout />
+                ) : (
+                  <Routes>
+                    <Route
+                      path={PATH_AUTH}
+                      element={<AuthHandler updateAPICreds={updateAPICreds} />}
+                    />
+                    {/* <Route path={PATH_LOGIN} element={<Login />} />
                 <Route path={PATH_SIGNUP} element={<Signup />} /> */}
-                  <Route path={PATH_ABOUT} element={<About />} />
-                  <Route path={PATH_COMPANY} element={<Company />} />
-                  <Route path={PATH_CONTACT} element={<Contact />} />
-                  <Route path={PATH_PRODUCTS} element={<Products />} />
-                  {/* <Route path={"/"} element={<Home />} /> */}
-                  <Route path={"/"} element={<Home />}>
-                    <Route path={PATH_LOGIN} element={<Login />} />
-                    <Route path={PATH_SIGNUP} element={<Signup />} />
-                  </Route>
-                  <Route path="/*" element={<Navigate to={"/"} />} />
-                </Routes>
-              );
-            }}
-          </AuthConsumer>
-        </BrowserRouter>
-      </AuthProvider>
+                    <Route path={PATH_ABOUT} element={<About />} />
+                    <Route path={PATH_COMPANY} element={<Company />} />
+                    <Route path={PATH_CONTACT} element={<Contact />} />
+                    <Route path={PATH_PRODUCTS} element={<Products />} />
+                    {/* <Route path={"/"} element={<Home />} /> */}
+                    <Route path={"/"} element={<Home />}>
+                      <Route path={PATH_LOGIN} element={<Login />} />
+                      <Route path={PATH_SIGNUP} element={<Signup />} />
+                    </Route>
+                    <Route path="/*" element={<Navigate to={"/"} />} />
+                  </Routes>
+                );
+              }}
+            </AuthConsumer>
+          </BrowserRouter>
+        </AuthProvider>
       </div>
       <Footer />
     </>

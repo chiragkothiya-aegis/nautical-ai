@@ -1,3 +1,5 @@
+@import "../../styles/Variables.scss";
+
 .header {
   display: flex;
   justify-content: end;
@@ -5,15 +7,26 @@
   padding-inline: 10px;
 }
 
+.memu-dot {
+  height: 20px;
+  fill: $color-primary;
+  padding-left: 10px;
+  padding-right: 15px;
+}
+
 .menu-view {
   position: absolute;
   top: 50%;
   cursor: pointer;
   padding: 10px;
+  svg {
+    height: 20px;
+    fill: $color-primary;
+  }
   div {
     height: 25px;
     width: 4px;
-    background-color: black;
+    background-color: $color-primary;
     border-radius: 2px;
   }
 }

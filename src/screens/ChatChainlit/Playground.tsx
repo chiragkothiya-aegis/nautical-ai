@@ -98,7 +98,7 @@ export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
 
   return (
     <div className="chat-container">
-      <div style={{ height: "100%", display: "flex", flexDirection: "column", }}>
+      <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
         {showDefaultQuestions ? (
           renderDefaultQuestions()
         ) : (
@@ -125,9 +125,9 @@ export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
                 handleSendMessage(inputValue);
               }
             }}
-            placeholder="What do you need help with?"
+            placeholder="Enter your question here"
           />
-          <div className="send">
+          <div className="send" onClick={() => handleSendMessage(inputValue)}>
             <img src={iconSend} />
           </div>
           {/* <AiOutlineSend

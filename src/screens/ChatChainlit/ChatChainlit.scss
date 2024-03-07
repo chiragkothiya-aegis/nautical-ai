@@ -17,15 +17,12 @@
   overflow: auto;
   display: flex;
   flex-direction: column;
-  height: 92%;
+  height: calc(100% - 42px);
+  // height: 91%;
   justify-content: space-between;
   border-radius: 2px;
   margin: auto;
   max-width: 100vw;
-  padding-inline: 150px;
-  @media (max-width: 768px) {
-    padding-inline: 20px;
-  }
 }
 
 .message-list {
@@ -33,18 +30,19 @@
   overflow-y: auto; /* Enable vertical scrolling */
   padding: 3rem 4rem 1rem 4rem;
   background: white;
-
+  padding-inline: 150px;
   @media (max-width: 1000px) {
     padding: 4rem 8rem 1rem 8rem;
   }
 
   @media (max-width: 768px) {
+    padding-inline: 0px;
     padding: 4rem 0rem 1rem 0rem;
   }
 }
 
 .message {
-  color: #333; /* Dark text for readability */
+  color: $color-text;
   border-radius: 20px;
   padding: 10px 20px;
   margin-bottom: 10px;
@@ -59,6 +57,7 @@
   justify-content: center;
   background-color: $color-bg;
   border-radius: 50px;
+  margin-inline: 150px;
   input {
     flex-grow: 1;
     padding: 10px;
@@ -82,6 +81,9 @@
       height: 18px;
       width: 18px;
     }
+  }
+  @media (max-width: 768px) {
+    margin-inline: 10px;
   }
 }
 
@@ -217,6 +219,10 @@
   align-items: center; /* Adjusted alignment */
   text-align: center; /* Center the text */
   height: 100%;
+  padding-inline: 150px;
+  @media (max-width: 768px) {
+    padding-inline: 10px;
+  }
 }
 
 .default-questions-list {

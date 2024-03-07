@@ -5,7 +5,8 @@ import AppRoutes from "./AppRoutes";
 import { useNavigate } from "react-router-dom";
 import { PATH_CHAT, PATH_HISTORY } from "./RouteConstants";
 import { useEffect, useState } from "react";
-import { ReactComponent as LogoSideBlack } from "../../assets/images/logo_text_side_black.svg";
+import { ReactComponent as IconMenu } from "../../assets/images/menu.svg";
+import { ReactComponent as IconMenuDot } from "../../assets/images/menu-dot.svg";
 import History from "../history/History";
 import "./AppLayout.scss";
 
@@ -66,8 +67,8 @@ export default function AppLayout({ children }: any) {
   };
 
   const renderHeader = () => {
-    const picture = JSON.parse(localStorage.getItem("user") ?? "{}")?.user_info
-      ?.picture;
+    const user = JSON.parse(localStorage.getItem("user") ?? "{}")?.user_info;
+    const picture = user?.picture;
     const iconPro = (picture?.length ?? 0) == 0 ? profileIcon : picture;
     return (
       <div className="header">
@@ -87,13 +88,8 @@ export default function AppLayout({ children }: any) {
               height="30px"
               style={{ borderRadius: "50px" }}
             />
-            name
-            <DownOutlined
-              style={{
-                marginRight: "5px",
-                marginBottom: "4px",
-              }}
-            />
+            {`${user?.name}`}
+            <IconMenuDot className="memu-dot" />
           </Space>
         </Dropdown>
       </div>
@@ -136,7 +132,7 @@ export default function AppLayout({ children }: any) {
               style={{ top: isMobile ? "5px" : "50%" }}
               onClick={() => setShowHistory(!showHistory)}
             >
-              <div />
+              {isMobile ? <IconMenu /> : <div />}
             </div>
             {renderHeader()}
             <AppRoutes />

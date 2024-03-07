@@ -17,6 +17,14 @@
   scrollbar-width: none;
   /* Firefox */
 
+  .history-header {
+    display: flex;
+    gap: 30px;
+    margin-block: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .recent {
     color: $color-primary;
     margin-left: 10px;
@@ -32,15 +40,27 @@
     display: flex;
     gap: 5px;
     padding-inline: 8px;
+    align-items: center;
+    padding-bottom: 5px;
     img {
-      height: 20px;
-      width: 20px;
+      height: 18px;
+      width: 18px;
+      margin-top: 1px;
+    }
+    svg {
+      margin-left: 2px;
+      height: 14px;
+      width: 14px;
+      fill: $color-primary;
     }
     span {
       width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       color: $color-text;
+    }
+    .primary-txt {
+      color: $color-primary;
     }
   }
 }
