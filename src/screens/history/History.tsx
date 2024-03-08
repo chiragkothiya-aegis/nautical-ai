@@ -89,7 +89,7 @@ function History() {
                 return (
                   <Button
                     type="text"
-                    style={{ textAlign: "left", width: "100%" }}
+                    style={{ textAlign: "left", width: "100%", marginTop:'6px' }}
                     onClick={() => {
                       navigate(PATH_HISTORY + `/${item?.id}`, {
                         state: { question: item?.question },

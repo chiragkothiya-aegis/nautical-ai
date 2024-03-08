@@ -129,7 +129,7 @@ export default function AppLayout({ children }: any) {
           >
             <div
               className="menu-view"
-              style={{ top: isMobile ? "5px" : "50%" }}
+              style={{ top: isMobile ? "5px" : "" }}
               onClick={() => setShowHistory(!showHistory)}
             >
               {isMobile ? <IconMenu /> : <div />}

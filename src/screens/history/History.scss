@@ -3,7 +3,7 @@
 .history-view {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
   height: 100%;
   overflow: auto;
   background: $color-bg;
@@ -11,6 +11,7 @@
   padding-top: 10px;
   padding-bottom: 30px;
   padding-inline: 10px;
+  border-right: 2px solid rgba(235, 237, 244);
 
   -ms-overflow-style: none;
   /* Internet Explorer 10+ */
@@ -86,6 +87,7 @@
       }
     }
     .ant-collapse-content {
+      background-color: $color-bg;
       .ant-collapse-content-box {
         padding: 0px;
         background-color: $color-bg;

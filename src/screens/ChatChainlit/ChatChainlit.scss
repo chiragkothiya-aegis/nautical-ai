@@ -58,6 +58,7 @@
   background-color: $color-bg;
   border-radius: 50px;
   margin-inline: 150px;
+  border: 2px solid rgba(235, 237, 244);
   input {
     flex-grow: 1;
     padding: 10px;
@@ -202,6 +203,7 @@
   color: $color-text;
   width: fit-content;
   height: 100%;
+  border: 2px solid rgba(235, 237, 244);
   /* font-size: 0.5rem; */
 }
 
