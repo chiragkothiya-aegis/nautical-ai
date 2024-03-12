@@ -34,9 +34,6 @@ export default function AppLayout({ children }: any) {
 
   const isMobile = width <= 768;
 
-  console.log("width: ", width);
-  console.log("isMobile: ", isMobile);
-
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
   }
