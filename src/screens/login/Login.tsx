@@ -8,34 +8,15 @@ import { PATH_SIGNUP } from "../layout/RouteConstants";
 import { authenticate, forgotPassword } from "../../shared/authenticate";
 import OTP from "./otp";
 import "./Login.scss";
+import ForgotPassword from "./ForgotPassword";
 
 function Login() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [email, setEmail] = useState("");
-
-  const actionForgotPassword = (values: any) => {
-    forgotPassword("chirag@yopmail.com")
-      .then(
-        (data: any) => {
-          console.log("login data: ", data);
-          // localStorage.setItem("token", data?.accessToken?.jwtToken);
-          // localStorage.setItem("token", data?.refreshToken?.token);
-        },
-        (err) => {
-          console.log("err: ", err);
-          console.log("err?.message: ", err?.__type);
-          // if (err?.message == "User is not confirmed.") {
-          //   setEmail(values?.email);
-          //   setShowOTP(true);
-          // }
-          notification.error({ message: err?.message ?? "" });
-        }
-      )
-      .catch((err) => console.log(err));
-  };
 
   const handleSubmit = (values: any, updateAPICreds: any) => {
     setLoading(true);
@@ -101,7 +82,7 @@ function Login() {
                     style={{ width: "100%" }}
                     className="btn-forgotPassword"
                     htmlType="button"
-                    // onClick={() => actionForgotPassword({})}
+                    onClick={() => setShowForgotPassword(true)}
                   >
                     Forgot Password?
                   </Button>
@@ -144,6 +125,8 @@ function Login() {
           <></>
         ) : showOTP ? (
           <OTP email={email} setShowOTP={setShowOTP} />
+        ) : showForgotPassword ? (
+          <ForgotPassword setShowForgotPassword={setShowForgotPassword} />
         ) : (
           renderLogin(updateAPICreds)
         );
