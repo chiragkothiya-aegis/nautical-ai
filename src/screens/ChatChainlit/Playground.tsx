@@ -91,7 +91,9 @@ export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
     return (
       <div className="loading-message">
         <div className="loader" />
-        <div>{"Initiating search through our extensive knowledge base..."}</div>
+        {/* <div> */}
+        {"Initiating search through our extensive knowledge base..."}
+        {/* </div> */}
       </div>
     );
   };
