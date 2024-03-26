@@ -1,18 +1,22 @@
 import { Button, Card, Checkbox, Form, List, notification } from "antd";
 import { AuthConsumer } from "../../shared/AuthContext/AuthContext";
 import FormInput from "../../shared/components/FormInput/FormInput";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SocialLogin from "./SocialLogin";
 import { useNavigate } from "react-router-dom";
 import { PATH_LOGIN } from "../layout/RouteConstants";
 import FormSelect from "../../shared/components/FormSelect/FormSelect";
 import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 import userpool from "../../userpool";
+import ReCAPTCHA from "react-google-recaptcha";
 import OTP from "./otp";
+import jsonCountry from "./country.json";
 import "./Login.scss";
 
 function Signup() {
   const navigate = useNavigate();
+
+  const recaptcha = useRef() as any;
 
   const [loading, setLoading] = useState(false);
   const [showOTP, setShowOTP] = useState(false);
@@ -25,6 +29,12 @@ function Signup() {
   }, [showOTP]);
 
   const handleSubmit = (values: any, updateAPICreds: any) => {
+    const captchaValue = recaptcha.current.getValue();
+    if (!captchaValue) {
+      notification.error({ message: "Please verify the reCAPTCHA!" });
+      return;
+    }
+
     const attributeList = [];
     attributeList.push(
       new CognitoUserAttribute({
@@ -62,14 +72,12 @@ function Signup() {
       placeholder="Organisation/Institution"
       isRequired
     />,
-    // <FormInput name={"country"} placeholder="Country" isRequired />,
     <FormSelect
       name={"country"}
       placeholder="Country"
-      options={[
-        { value: "usa", label: "USA" },
-        { value: "australia", label: "Australia" },
-      ]}
+      optionFilterProp="children"
+      options={jsonCountry}
+      isRequired
     />,
     <FormInput name={"phone Number"} placeholder="Phone Number" isRequired />,
     <FormInput name={"email"} type="email" placeholder="Email" isRequired />,
@@ -114,7 +122,7 @@ function Signup() {
                 requiredMark={false}
               >
                 <List
-                  grid={{ gutter: 15, column: 2, xs: 1 }}
+                  grid={{ gutter: 15, column: 2, md:1, sm:1, xs: 1 }}
                   dataSource={formInputs}
                   renderItem={(item) => (
                     <List.Item style={{ marginBottom: "0px" }}>
@@ -124,6 +132,8 @@ function Signup() {
                 />
 
                 <Form.Item
+                  name={"terms_of_use"}
+                  valuePropName="checked"
                   rules={[
                     {
                       validator: (_, value) =>
@@ -141,21 +151,17 @@ function Signup() {
                   </Checkbox>
                 </Form.Item>
 
-                <Form.Item
-                  rules={[
-                    {
-                      required: true,
-                      message: `Please check i am not a robot`,
-                    },
-                  ]}
-                >
-                  <Checkbox className="text-checkbox">
-                    I am not a robot
-                  </Checkbox>
-                </Form.Item>
+                <ReCAPTCHA
+                  ref={recaptcha}
+                  sitekey={"6LdCAqUpAAAAAFV1s9fjV4p8wmIkFuGM-Q8ud-mw"}
+                />
 
                 <Form.Item
-                  style={{ display: "flex", justifyContent: "center" }}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "15px",
+                  }}
                 >
                   <Button
                     type="primary"

@@ -18,12 +18,13 @@
   padding: 20px;
   overflow: auto;
   .desc {
-    font-size: 25px;
-    // font-size: 20px;
+    font-size: 35px;
     color: $color-text;
     margin-top: 20px;
+    width: 220px;
     @media (max-width: 768px) {
-      font-size: 16px;
+      font-size: 20px;
+      width: 270px;
     }
   }
 }

@@ -64,7 +64,10 @@ export default function AppLayout({ children }: any) {
   };
 
   const renderHeader = () => {
-    const user = JSON.parse(localStorage.getItem("user") ?? "{}")?.user_info;
+    let user = JSON.parse(localStorage.getItem("user") ?? "{}")?.user_info;
+    if((Object.keys(user ?? {})?.length ?? 0) == 0) {
+      user = JSON.parse(localStorage.getItem("user") ?? "{}")
+    }
     const picture = user?.picture;
     const iconPro = (picture?.length ?? 0) == 0 ? profileIcon : picture;
     return (
@@ -85,7 +88,7 @@ export default function AppLayout({ children }: any) {
               height="30px"
               style={{ borderRadius: "50px" }}
             />
-            {`${user?.name}`}
+            {`${user?.name ?? user?.email}`}
             <IconMenuDot className="memu-dot" />
           </Space>
         </Dropdown>

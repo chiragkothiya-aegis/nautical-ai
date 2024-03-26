@@ -63,8 +63,17 @@ function Home() {
         <div className="left-view-home">
           {/* <LogoSide /> */}
           <img src={logo} width={"150px"} />
-          <div style={{ marginTop: "10px", paddingBlock: "20px" }}>
-          <span className="desc">{"Empower your marine journey with interactive learning"}</span>
+          <div
+            style={{
+              marginTop: "10px",
+              paddingBlock: "20px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <span className="desc">
+              {"Empower your marine journey with interactive learning"}
+            </span>
             {/* <span className="desc">{question.question}</span>
             <WriteLikeChatGPT text={question.answer} /> */}
           </div>
