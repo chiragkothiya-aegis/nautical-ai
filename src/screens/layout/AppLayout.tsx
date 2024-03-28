@@ -1,9 +1,8 @@
-import { Button, Dropdown, Layout, Space } from "antd";
-import { DownOutlined, PlusOutlined } from "@ant-design/icons";
-import profileIcon from "../../assets/images/avatar.svg";
+import { Dropdown, Layout, Space } from "antd";
+import profileIcon from "../../assets/images/avatar.png";
 import AppRoutes from "./AppRoutes";
 import { useNavigate } from "react-router-dom";
-import { PATH_CHAT, PATH_HISTORY } from "./RouteConstants";
+import { PATH_CHAT } from "./RouteConstants";
 import { useEffect, useState } from "react";
 import { ReactComponent as IconMenu } from "../../assets/images/menu.svg";
 import { ReactComponent as IconMenuDot } from "../../assets/images/menu-dot.svg";
@@ -65,8 +64,8 @@ export default function AppLayout({ children }: any) {
 
   const renderHeader = () => {
     let user = JSON.parse(localStorage.getItem("user") ?? "{}")?.user_info;
-    if((Object.keys(user ?? {})?.length ?? 0) == 0) {
-      user = JSON.parse(localStorage.getItem("user") ?? "{}")
+    if ((Object.keys(user ?? {})?.length ?? 0) == 0) {
+      user = JSON.parse(localStorage.getItem("user") ?? "{}");
     }
     const picture = user?.picture;
     const iconPro = (picture?.length ?? 0) == 0 ? profileIcon : picture;
@@ -84,8 +83,8 @@ export default function AppLayout({ children }: any) {
             <img
               src={iconPro ?? ""}
               alt={"profile"}
-              width="30px"
-              height="30px"
+              width="26px"
+              height="26px"
               style={{ borderRadius: "50px" }}
             />
             {`${user?.name ?? user?.email}`}

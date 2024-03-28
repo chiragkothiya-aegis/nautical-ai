@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IFeedback, IStep } from "@chainlit/react-client";
 import ReactMarkdown from "react-markdown";
-import logo from "../../assets/images/logo.svg";
+import logo from "../../assets/images/logo-ai.png";
 import { LiaThumbsDownSolid, LiaThumbsUp } from "react-icons/lia";
 import { Modal } from "antd";
 import TextArea from "antd/es/input/TextArea";

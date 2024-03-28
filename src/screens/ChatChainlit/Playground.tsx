@@ -7,7 +7,6 @@ import {
   useChatData,
 } from "@chainlit/react-client";
 import { useEffect, useRef, useState } from "react";
-import { AiOutlineSend } from "react-icons/ai";
 import ChatMessage from "./ChatMessage";
 import { List } from "antd";
 import "./ChatChainlit.scss";
