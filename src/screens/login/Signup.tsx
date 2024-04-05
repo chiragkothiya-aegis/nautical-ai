@@ -64,6 +64,56 @@ function Signup() {
     );
   };
 
+  const passwordValidator = (_: any, value: any) => {
+    // if((value?.length ?? 0) == 0) {
+    //   return;
+    // }
+    if (
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.#$!%*?&])[A-Za-z\d@.#$!%*?&]{8,15}$/.test(
+        value
+      )
+    ) {
+      let regxColor = "#ff4d4f";
+      if ((value?.length ?? 0) > 7) {
+        regxColor = "gray";
+      }
+      let regex1 = /[A-Z]/;
+      let regx1Color = "#ff4d4f";
+      if (regex1.test(value)) {
+        regx1Color = "gray";
+      }
+      let regex2 = /[a-z]/;
+      let regx2Color = "#ff4d4f";
+      if (regex2.test(value ? value : "")) {
+        regx2Color = "gray";
+      }
+      let regex3 = /[\d]/;
+      let regx3Color = "#ff4d4f";
+      if (regex3.test(value)) {
+        regx3Color = "gray";
+      }
+      let regex4 = /[!@#$%^&*.?]/;
+      let regx4Color = "#ff4d4f";
+      if (regex4.test(value)) {
+        regx4Color = "gray";
+      }
+      return Promise.reject(
+        <>
+          <span style={{ color: regxColor }}>
+            Enter 8 or more characters with a mix of{" "}
+          </span>
+          <span style={{ color: regx1Color }}> capital letters</span>,
+          <span style={{ color: regx2Color }}>small letters</span>,
+          <span style={{ color: regx3Color }}>numbers </span>
+          {" &"}
+          <span style={{ color: regx4Color }}> symbols</span>
+        </>
+      );
+    } else {
+      return Promise.resolve();
+    }
+  };
+
   const formInputs = [
     <FormInput name={"firstname"} placeholder="First Name" isRequired />,
     <FormInput name={"lastName"} placeholder="Last Name" isRequired />,
@@ -86,6 +136,7 @@ function Signup() {
       type="password"
       placeholder="Password"
       isRequired
+      rules={[{ validator: passwordValidator }]}
     />,
     <FormInput
       name={"contirm_password"}
@@ -122,7 +173,7 @@ function Signup() {
                 requiredMark={false}
               >
                 <List
-                  grid={{ gutter: 15, column: 2, md:1, sm:1, xs: 1 }}
+                  grid={{ gutter: 15, column: 2, md: 1, sm: 1, xs: 1 }}
                   dataSource={formInputs}
                   renderItem={(item) => (
                     <List.Item style={{ marginBottom: "0px" }}>
