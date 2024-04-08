@@ -2,10 +2,13 @@ import AXIOS from "axios";
 import { notification } from "antd";
 import { ChainlitAPI } from "@chainlit/react-client";
 
-export const URL_AUTH = "https://nautical-authentication-backend-prod-fxhbdhovha-el.a.run.app";
+//export const URL_AUTH = "https://nautical-authentication-backend-prod-fxhbdhovha-el.a.run.app";
 
+export const URL_AUTH = "https://rueq4tqxma.ap-southeast-2.awsapprunner.com";
 // const CHAINLIT_SERVER = "https://nautical-cl-be-fxhbdhovha-el.a.run.app";
-export const CHAINLIT_SERVER = "https://nautical-chainlit-backend-prod-fxhbdhovha-el.a.run.app";
+//export const CHAINLIT_SERVER = "https://nautical-chainlit-backend-prod-fxhbdhovha-el.a.run.app";
+export const CHAINLIT_SERVER ="https://g7qxq265pm.ap-southeast-2.awsapprunner.com";
+
 export const apiClient = new ChainlitAPI(CHAINLIT_SERVER);
 
 function createPublicInstance() {
