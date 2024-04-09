@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { sessionState, useChatSession } from "@chainlit/react-client";
 import { useRecoilValue } from "recoil";
 import { Playground } from "./Playground";
@@ -9,7 +9,7 @@ function ChatChainlit() {
   const session = useRecoilValue(sessionState);
 
   useEffect(() => {
-    if (session?.socket.connected) {
+    if (session?.socket?.connected) {
       return;
     }
 

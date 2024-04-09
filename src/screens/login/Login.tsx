@@ -9,6 +9,7 @@ import { authenticate, forgotPassword } from "../../shared/authenticate";
 import OTP from "./otp";
 import "./Login.scss";
 import ForgotPassword from "./ForgotPassword";
+import { API_SERVICE } from "../../shared/api-services";
 
 function Login() {
   const navigate = useNavigate();
@@ -24,10 +25,7 @@ function Login() {
       .then(
         (data: any) => {
           console.log("login data: ", data);
-          // localStorage.setItem("token", data?.accessToken?.jwtToken);
-          // localStorage.setItem("token", data?.refreshToken?.token);
-          localStorage.setItem("token", data?.idToken?.jwtToken);
-          updateAPICreds({ payload: data?.idToken?.payload });
+          getCustomAuth(data?.idToken?.payload, updateAPICreds);
         },
         (err) => {
           console.log("err: ", err);
@@ -37,9 +35,28 @@ function Login() {
             setShowOTP(true);
           }
           notification.error({ message: err?.message ?? "" });
+          setLoading(false);
         }
       )
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  };
+
+  const getCustomAuth = (user: any, updateAPICreds: any) => {
+    API_SERVICE.getCustomAuth({ username: user.email })
+      .then(({ data }) => {
+        if (data?.token) {
+          setTimeout(() => {
+            localStorage.setItem("token", data.token);
+            updateAPICreds({ payload: user });
+          }, 1000);
+        } else {
+          API_SERVICE.handelAPiError("");
+        }
+      })
+      .catch((e) => API_SERVICE.handelAPiError(e))
       .finally(() => setLoading(false));
   };
 

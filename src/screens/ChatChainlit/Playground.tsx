@@ -36,7 +36,7 @@ export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
     if (showLoading && messages?.at(-1)?.streaming) {
       setShowLoading(false);
     }
-    if (messageListRef.current) {
+    if (messageListRef?.current) {
       messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
     }
   }, [messages]);

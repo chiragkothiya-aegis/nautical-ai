@@ -27,12 +27,15 @@ function History() {
     };
 
     setLoading(true);
-    API_SERVICE.threads(body)
-      .then(({ data }) => {
-        setHistoryList(data?.data ?? []);
-      })
-      .catch((e) => API_SERVICE.handelAPiError(e))
-      .finally(() => setLoading(false));
+    try {
+      API_SERVICE.threads(body)
+        .then(({ data }) => setHistoryList(data?.data ?? []))
+        .catch((e) => API_SERVICE.handelAPiError(e))
+        .finally(() => setLoading(false));
+    } catch (error) {
+      console.log("Error: error")
+      API_SERVICE.handelAPiError(error)
+    }
   }, []);
 
   return (
@@ -89,7 +92,11 @@ function History() {
                 return (
                   <Button
                     type="text"
-                    style={{ textAlign: "left", width: "100%", marginTop:'6px' }}
+                    style={{
+                      textAlign: "left",
+                      width: "100%",
+                      marginTop: "6px",
+                    }}
                     onClick={() => {
                       navigate(PATH_HISTORY + `/${item?.id}`, {
                         state: { question: item?.question },
