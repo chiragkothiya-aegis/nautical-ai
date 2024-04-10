@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import iconSend from "../../assets/images/send.png";
+import iconStop from "../../assets/images/stop.png";
 import {
   useChatInteract,
   useChatMessages,
@@ -15,7 +16,7 @@ interface IPlayground {}
 
 export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
   const [inputValue, setInputValue] = useState("");
-  const { sendMessage } = useChatInteract();
+  const { sendMessage, stopTask } = useChatInteract();
   const { loading } = useChatData();
   const { messages } = useChatMessages();
   const messageListRef = useRef<any>(null);
@@ -128,8 +129,18 @@ export const Playground: React.FC<IPlayground> = (props: IPlayground) => {
             }}
             placeholder="Enter your question here"
           />
-          <div className="send" onClick={() => handleSendMessage(inputValue)}>
-            <img src={iconSend} />
+          <div
+            className={"send" + (showLoading ? " stop" : " stop")}
+            onClick={() => {
+              if(showLoading) {
+                stopTask()
+                setShowLoading(false);
+              } else {
+                handleSendMessage(inputValue);
+              }
+            }}
+          >
+            <img src={showLoading ? iconStop : iconSend} />
           </div>
           {/* <AiOutlineSend
             onClick={() => handleSendMessage(inputValue)}

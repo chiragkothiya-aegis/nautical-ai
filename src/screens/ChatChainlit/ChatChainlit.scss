@@ -83,6 +83,12 @@
       width: 18px;
       padding-left: 2px;
     }
+    &.stop {
+      img {
+        padding-left: 0px;
+        padding-top: 1px;
+      }
+    }
   }
   @media (max-width: 768px) {
     margin-inline: 10px;
